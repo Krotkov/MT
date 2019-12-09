@@ -1,0 +1,19 @@
+S -> e
+S -> F
+S -> P
+
+F -> function name ( AS ) : type ;
+P -> procedure name ( AS ) ;
+
+AS -> e
+AS -> A AS2
+
+AS2 -> e
+AS2 -> ; A AS2
+
+A -> VS : type
+
+VS -> name VS2
+
+VS2 -> , name VS2
+VS2 -> e
