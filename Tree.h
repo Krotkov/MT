@@ -8,6 +8,7 @@
 
 #include <string>
 #include <vector>
+#include <set>
 
 class Tree {
     std::string node;
@@ -20,7 +21,7 @@ public:
 
     Tree();
 
-    friend void printTree(Tree tree, int num);
+    friend void printTree(Tree tree, int num, std::set<int>& se);
 };
 
 

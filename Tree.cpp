@@ -22,12 +22,17 @@ Tree::Tree() {
     this->children.resize(0);
 }
 
-void printTree(Tree tree, int num) {
+void printTree(Tree tree, int num, std::set<int>& se) {
     for (int i = 0; i < num; i++) {
-        std::cout << " ";
+        if (se.find(i) != se.end()) std::cout << "|";
+        else std::cout << " ";
     }
+    std::cout << "|";
     std::cout << tree.node << "\n";
-    for (const auto& j: tree.children) {
-        printTree(j, num+5);
+    se.insert(num+5);
+    for (int j = 0; j < tree.children.size(); j++) {
+        if (j+1 == tree.children.size()) se.erase(num+5);
+        printTree(tree.children[j], num+5, se);
     }
+    se.erase(num+5);
 }

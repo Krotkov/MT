@@ -4,6 +4,7 @@
 
 #include <iostream>
 #include <vector>
+#include <set>
 #include "Parser.h"
 
 int main () {
@@ -16,6 +17,7 @@ int main () {
         lexer.nextToken();
     }
     Tree ans = Parser().parse(str);
-    printTree(ans, 0);
+    std::set<int> se;
+    printTree(ans, 0, se);
     return 0;
 }
