@@ -13,8 +13,8 @@ enum Token {
 
 class Lexer {
     std::string stream;
-    int curPos;
-    Token _curToken;
+    int curPos{};
+    Token _curToken{};
 
     static bool isBlank(char c);
     std::string getStr();

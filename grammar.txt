@@ -3,7 +3,10 @@ S -> F
 S -> P
 
 F -> function name ( AS ) : type ;
+F -> function name : type ;
+
 P -> procedure name ( AS ) ;
+P -> procedure name ;
 
 AS -> e
 AS -> A AS2

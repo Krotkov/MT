@@ -7,7 +7,7 @@
 
 Lexer::Lexer(std::string &str) {
     this->stream = str;
-    this->stream += '*';
+    this->stream += '$';
     this->curPos = 0;
     this->_curToken = Token::BEGIN;
 }
@@ -18,8 +18,8 @@ bool Lexer::isBlank(char c) {
 
 std::string Lexer::getStr() {
     char curSymbol = curChar();
-    std::string ans = "";
-    while (!isBlank(curSymbol) && curSymbol != '*' && checkSymbol(curSymbol)) {
+    std::string ans;
+    while (!isBlank(curSymbol) && curSymbol != '$' && checkSymbol(curSymbol)) {
         ans += curSymbol;
         curSymbol = nextChar();
     }
@@ -65,7 +65,7 @@ void Lexer::nextToken() {
             _curToken = Token::COMMA;
             nextChar();
             break;
-        case '*':
+        case '$':
             _curToken = Token::END;
             nextChar();
             break;
@@ -76,7 +76,8 @@ void Lexer::nextToken() {
             std::string str = getStr();
             if (str == "function") _curToken = Token::FUNCTION;
             else if (str == "procedure") _curToken = Token::PROCEDURE;
-            else if (str == "integer" || str == "longint" || str == "double") _curToken = Token::TYPE;
+            else if (str == "integer" || str == "longint" || str == "double" || str == "boolean" || str == "short")
+                _curToken = Token::TYPE;
             else {
                 if (checkVarName(str)) {
                     _curToken = Token::NAME;
@@ -87,7 +88,7 @@ void Lexer::nextToken() {
     }
 }
 
-bool Lexer::checkVarName(std::string & str) {
+bool Lexer::checkVarName(std::string &str) {
     bool ans = true;
     if (str[0] < 'a' || str[0] > 'z') ans = false;
     for (size_t i = 1; i < str.size(); i++) {
@@ -102,7 +103,7 @@ bool Lexer::checkSymbol(char c) {
     return (c >= 'a' && c <= 'z') || (c >= '0' && c <= '9');
 }
 
-Lexer::Lexer() {}
+Lexer::Lexer() = default;
 
 
 

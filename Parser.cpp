@@ -12,21 +12,21 @@ Tree Parser::S() {
         case (Token::FUNCTION):
             child = F();
             if (lexer.curToken() != Token::END) {
-                throw std::runtime_error("s");
+                throw std::runtime_error("S");
             }
             children.emplace_back(child);
             return Tree("S", children);
         case (Token::PROCEDURE):
             child = P();
             if (lexer.curToken() != Token::END) {
-                throw std::runtime_error("s");
+                throw std::runtime_error("S");
             }
             children.emplace_back(child);
             return Tree("S", children);
         case (Token::END):
             return Tree("S");
         default:
-            throw std::runtime_error("s");
+            throw std::runtime_error("S");
     }
 }
 
@@ -39,28 +39,45 @@ Tree Parser::F() {
         case (Token::FUNCTION):
             lexer.nextToken();
             if (lexer.curToken() != Token::NAME) {
-                throw std::runtime_error("f");
+                throw std::runtime_error("F");
             }
             lexer.nextToken();
             if (lexer.curToken() != Token::LBRACKET) {
-                throw std::runtime_error("f");
+                if (lexer.curToken() != Token::COLON) {
+                    throw std::runtime_error("F");
+                }
+                lexer.nextToken();
+                if (lexer.curToken() != Token::TYPE) {
+                    throw std::runtime_error("F");
+                }
+                lexer.nextToken();
+                if (lexer.curToken() != Token::SEMICOLON) {
+                    throw std::runtime_error("F");
+                }
+                lexer.nextToken();
+                children.emplace_back("function");
+                children.emplace_back("<name>");
+                children.emplace_back(":");
+                children.emplace_back("<type>");
+                children.emplace_back(";");
+                return Tree("F", children);
             }
             lexer.nextToken();
             vars = AS();
             if (lexer.curToken() != Token::RBRACKET) {
-                throw std::runtime_error("f");
+                throw std::runtime_error("F");
             }
             lexer.nextToken();
             if (lexer.curToken() != Token::COLON) {
-                throw std::runtime_error("f");
+                throw std::runtime_error("F");
             }
             lexer.nextToken();
             if (lexer.curToken() != Token::TYPE) {
-                throw std::runtime_error("f");
+                throw std::runtime_error("F");
             }
             lexer.nextToken();
             if (lexer.curToken() != Token::SEMICOLON) {
-                throw std::runtime_error("f");
+                throw std::runtime_error("F");
             }
             lexer.nextToken();
             children.emplace_back("function");
@@ -73,7 +90,7 @@ Tree Parser::F() {
             children.emplace_back(";");
             return Tree("F", children);
         default:
-            throw std::runtime_error("f");
+            throw std::runtime_error("F");
 
     }
 }
@@ -87,23 +104,30 @@ Tree Parser::P() {
         case (Token::PROCEDURE):
             lexer.nextToken();
             if (lexer.curToken() != Token::NAME) {
-                throw std::runtime_error("p");
+                throw std::runtime_error("P");
             }
             lexer.nextToken();
             if (lexer.curToken() != Token::LBRACKET) {
-                throw std::runtime_error("p");
+                if (lexer.curToken() != Token::SEMICOLON) {
+                    throw std::runtime_error("F");
+                }
+                lexer.nextToken();
+                children.emplace_back("procedure");
+                children.emplace_back("<name>");
+                children.emplace_back(";");
+                return Tree("F", children);
             }
             lexer.nextToken();
             vars = AS();
             if (lexer.curToken() != Token::RBRACKET) {
-                throw std::runtime_error("p");
+                throw std::runtime_error("P");
             }
             lexer.nextToken();
             if (lexer.curToken() != Token::SEMICOLON) {
-                throw std::runtime_error("p");
+                throw std::runtime_error("P");
             }
             lexer.nextToken();
-            children.emplace_back("function");
+            children.emplace_back("procedure");
             children.emplace_back("<name>");
             children.emplace_back("(");
             children.emplace_back(vars);
@@ -111,7 +135,7 @@ Tree Parser::P() {
             children.emplace_back(";");
             return Tree("F", children);
         default:
-            throw std::runtime_error("p");
+            throw std::runtime_error("P");
 
     }
 }
@@ -129,7 +153,7 @@ Tree Parser::AS() {
         case (Token::RBRACKET):
             return Tree("AS");
         default:
-            throw std::runtime_error("as");
+            throw std::runtime_error("AS");
     }
 }
 
@@ -148,7 +172,7 @@ Tree Parser::AS2() {
         case (Token::RBRACKET):
             return Tree("AS2");
         default:
-            throw std::runtime_error("as2");
+            throw std::runtime_error("AS2");
     }
 }
 
@@ -159,11 +183,11 @@ Tree Parser::A() {
         case (Token::NAME):
             child = VS();
             if (lexer.curToken() != Token::COLON) {
-                throw std::runtime_error("a");
+                throw std::runtime_error("A");
             }
             lexer.nextToken();
             if (lexer.curToken() != Token::TYPE) {
-                throw std::runtime_error("a");
+                throw std::runtime_error("A");
             }
             lexer.nextToken();
             children.emplace_back(child);
@@ -171,7 +195,7 @@ Tree Parser::A() {
             children.emplace_back("<type>");
             return Tree("A", children);
         default:
-            throw std::runtime_error("a");
+            throw std::runtime_error("A");
     }
 }
 
@@ -179,7 +203,7 @@ Tree Parser::VS() {
     std::vector<Tree> children;
     Tree child;
     if (lexer.curToken() != Token::NAME) {
-        throw std::runtime_error("vs");
+        throw std::runtime_error("VS");
     }
     lexer.nextToken();
     child = VS2();
@@ -195,7 +219,7 @@ Tree Parser::VS2() {
         case (Token::COMMA):
             lexer.nextToken();
             if (lexer.curToken() != Token::NAME) {
-                throw std::runtime_error("vs2");
+                throw std::runtime_error("VS2");
             }
             lexer.nextToken();
             child = VS2();
@@ -206,7 +230,7 @@ Tree Parser::VS2() {
         case (Token::COLON):
             return Tree("VS2");
         default:
-            throw std::runtime_error("vs2");
+            throw std::runtime_error("VS2");
     }
 }
 
@@ -216,6 +240,4 @@ Tree Parser::parse(std::string &a) {
     return S();
 }
 
-Parser::Parser() {}
-
-
+Parser::Parser() = default;
