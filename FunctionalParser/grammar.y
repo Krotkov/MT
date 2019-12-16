@@ -24,13 +24,13 @@
     std::string* str;
 }
 
-%type <ret> FUNCTYPES FUNCVARS
-%type <str> Input PROGRAM FUNCTYPE MAINFUNC FUNCTIONS FUNCTION
+%type <ret> FUNCVARS
+%type <str> Input PROGRAM MAINFUNC FUNCTIONS FUNCTION
 %type <exprRet> EXPR EXPR1 EXPR2 EXPR3 EXPR4 EXPR5 EXPR6 EXPR7 EXPR8
 %type <varRet> VARS
 %token <str> NAME NUMBER TRUE FALSE MAIN AND OR NOT DIV MOD COMP
 %token <str> INT FLOAT BOOL
-%token LBRACKET RBRACKET IMPL CAR PLUS MINUS EQUAL READINT WRITEINT SEMICOLON COLONS IF THEN ELSE COMMA MUL LET DOLLAR
+%token LBRACKET RBRACKET PLUS MINUS EQUAL READINT WRITEINT SEMICOLON IF THEN ELSE COMMA MUL LET DOLLAR
 
 %start Input
 
@@ -107,32 +107,6 @@ FUNCVARS:
         auto ret = new std::vector<std::string>();
         $$ = ret;
     }
-;
-
-FUNCTYPES:
-    FUNCTYPES IMPL FUNCTYPE {
-        auto ret = ($1);
-        ret->push_back(*($3));
-        $$ = ret;
-    }
-    | FUNCTYPE {
-        auto ret = new std::vector<std::string>();
-        ret->push_back(*($1));
-        $$ =  ret;
-    }
-;
-
-FUNCTYPE:
-    INT {
-        $$ = $1;
-    }
-    | BOOL {
-        $$ = $1;
-    }
-    | FLOAT {
-        $$ = $1;
-    }
-
 ;
 
 EXPR:
@@ -261,27 +235,19 @@ EXPR6:
     | EXPR7 {
     	$$ = $1;
     }
-    | EXPR6 MUL EXPR7 {
+    | EXPR6 PLUS EXPR7 {
     	std::string ans;
         ans += $1->first;
         ans += $3->first;
-        ans += "int " + nextVar() + " = " + $1->second + " * " + $3->second + ";\n";
+        ans += "int " + nextVar() + " = " + $1->second + " + " + $3->second + ";\n";
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         $$ = ret;
     }
-    | EXPR6 DIV EXPR7 {
+    | EXPR6 MINUS EXPR7 {
     	std::string ans;
     	ans += $1->first;
     	ans += $3->first;
-    	ans += "int " + nextVar() + " = " + $1->second + " / " + $3->second + ";\n";
-    	auto ret = new std::pair<std::string, std::string>(ans, curVar());
-    	$$ = ret;
-    }
-    | EXPR6 MOD EXPR7 {
-    	std::string ans;
-    	ans += $1->first;
-    	ans += $3->first;
-    	ans += "int " + nextVar() + " = " + $1->second + " % " + $3->second + ";\n";
+    	ans += "int " + nextVar() + " = " + $1->second + " - " + $3->second + ";\n";
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	$$ = ret;
     }
@@ -294,19 +260,27 @@ EXPR7:
     | EXPR8 {
     	$$ = $1;
     }
-    | EXPR7 PLUS EXPR8 {
+    | EXPR7 MUL EXPR8 {
     	std::string ans;
     	ans += $1->first;
     	ans += $3->first;
-    	ans += "int " + nextVar() + " = " + $1->second + " + " + $3->second + ";\n";
+    	ans += "int " + nextVar() + " = " + $1->second + " * " + $3->second + ";\n";
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	$$ = ret;
     }
-    | EXPR7 MINUS EXPR8 {
+    | EXPR7 DIV EXPR8 {
     	std::string ans;
     	ans += $1->first;
     	ans += $3->first;
-    	ans += "int " + nextVar() + " = " + $1->second + " - " + $3->second + ";\n";
+    	ans += "int " + nextVar() + " = " + $1->second + " / " + $3->second + ";\n";
+    	auto ret = new std::pair<std::string, std::string>(ans, curVar());
+    	$$ = ret;
+    }
+    | EXPR7 MOD EXPR8 {
+    	std::string ans;
+    	ans += $1->first;
+    	ans += $3->first;
+    	ans += "int " + nextVar() + " = " + $1->second + " % " + $3->second + ";\n";
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	$$ = ret;
     }

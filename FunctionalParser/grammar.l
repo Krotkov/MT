@@ -55,8 +55,6 @@ comp "=="|"!="|">"|">="|"<"|"<="
 
 "(" {return LBRACKET;}
 ")" {return RBRACKET;}
-"->" {return IMPL;}
-"|"  {return CAR;}
 "+"  {return PLUS;}
 "-"  {return MINUS;}
 "div" {return DIV;}
@@ -68,7 +66,6 @@ comp "=="|"!="|">"|">="|"<"|"<="
 "$"  {return DOLLAR;}
 ","  {return COMMA;}
 ";" {return SEMICOLON;}
-"::" {return COLONS;}
 "if" {return IF;}
 "then" {return THEN;}
 "else" {return ELSE;}
