@@ -1,0 +1,2 @@
+let mul a b = a * b;
+let Main = writeInt $ mul $ readInt $ readInt;
