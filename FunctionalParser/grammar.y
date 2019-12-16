@@ -333,10 +333,10 @@ EXPR8:
 ;
 
 VARS:
-    VARS LBRACKET EXPR RBRACKET {
+    VARS EXPR {
     	std::vector<std::string> vect = $1->second;
-    	std::string ans = $1->first + $3->first;
-    	vect.push_back($3->second);
+    	std::string ans = $1->first + $2->first;
+    	vect.push_back($2->second);
     	auto ret = new std::pair<std::string, std::vector<std::string> >(ans, vect);
     	$$ = ret;
     }

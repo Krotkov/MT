@@ -1,2 +1,2 @@
 let mul a b = a * b;
-let Main = writeInt (1 * 5 + 2);
+let Main = writeInt $ mul $ 1 $ 5 + 5;
