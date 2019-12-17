@@ -144,24 +144,20 @@ extern int yydebug;
     DIV = 266,
     MOD = 267,
     COMP = 268,
-    INT = 269,
-    FLOAT = 270,
-    BOOL = 271,
-    LBRACKET = 272,
-    RBRACKET = 273,
-    PLUS = 274,
-    MINUS = 275,
-    EQUAL = 276,
-    READINT = 277,
-    WRITEINT = 278,
-    SEMICOLON = 279,
-    IF = 280,
-    THEN = 281,
-    ELSE = 282,
-    COMMA = 283,
-    MUL = 284,
-    LET = 285,
-    DOLLAR = 286
+    LBRACKET = 269,
+    RBRACKET = 270,
+    PLUS = 271,
+    MINUS = 272,
+    EQUAL = 273,
+    READINT = 274,
+    WRITEINT = 275,
+    SEMICOLON = 276,
+    IF = 277,
+    THEN = 278,
+    ELSE = 279,
+    MUL = 280,
+    LET = 281,
+    DOLLAR = 282
   };
 #endif
 
@@ -176,7 +172,7 @@ union YYSTYPE
     std::vector<std::string>* ret;
     std::string* str;
 
-#line 180 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 176 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -495,19 +491,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   167
+#define YYLAST   151
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  32
+#define YYNTOKENS  28
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  17
+#define YYNNTS  16
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  49
+#define YYNRULES  45
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  97
+#define YYNSTATES  89
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   286
+#define YYMAXUTOK   282
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -547,18 +543,18 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
        5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
       15,    16,    17,    18,    19,    20,    21,    22,    23,    24,
-      25,    26,    27,    28,    29,    30,    31
+      25,    26,    27
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int16 yyrline[] =
 {
-       0,    40,    40,    44,    52,    58,    64,    83,    94,   100,
-     106,   113,   116,   130,   136,   139,   142,   153,   156,   159,
-     170,   173,   181,   187,   190,   198,   204,   207,   214,   220,
-     223,   229,   235,   238,   246,   257,   260,   263,   271,   279,
-     290,   293,   299,   316,   322,   336,   343,   350,   359,   366
+       0,    39,    39,    43,    51,    57,    63,    82,    93,    99,
+     105,   112,   115,   129,   135,   138,   141,   152,   155,   163,
+     169,   172,   180,   186,   189,   196,   202,   205,   211,   217,
+     220,   228,   239,   242,   245,   253,   261,   272,   275,   281,
+     298,   304,   318,   325,   332,   339
 };
 #endif
 
@@ -568,12 +564,11 @@ static const yytype_int16 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "NAME", "NUMBER", "TRUE", "FALSE",
-  "MAIN", "AND", "OR", "NOT", "DIV", "MOD", "COMP", "INT", "FLOAT", "BOOL",
-  "LBRACKET", "RBRACKET", "PLUS", "MINUS", "EQUAL", "READINT", "WRITEINT",
-  "SEMICOLON", "IF", "THEN", "ELSE", "COMMA", "MUL", "LET", "DOLLAR",
-  "$accept", "Input", "PROGRAM", "FUNCTIONS", "FUNCTION", "MAINFUNC",
-  "FUNCVARS", "EXPR", "EXPR1", "EXPR2", "EXPR3", "EXPR4", "EXPR5", "EXPR6",
-  "EXPR7", "EXPR8", "VARS", YY_NULLPTR
+  "MAIN", "AND", "OR", "NOT", "DIV", "MOD", "COMP", "LBRACKET", "RBRACKET",
+  "PLUS", "MINUS", "EQUAL", "READINT", "WRITEINT", "SEMICOLON", "IF",
+  "THEN", "ELSE", "MUL", "LET", "DOLLAR", "$accept", "Input", "PROGRAM",
+  "FUNCTIONS", "FUNCTION", "MAINFUNC", "FUNCVARS", "EXPR", "EXPR1",
+  "EXPR2", "EXPR3", "EXPR4", "EXPR5", "EXPR6", "EXPR7", "VARS", YY_NULLPTR
 };
 #endif
 
@@ -584,8 +579,7 @@ static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
      265,   266,   267,   268,   269,   270,   271,   272,   273,   274,
-     275,   276,   277,   278,   279,   280,   281,   282,   283,   284,
-     285,   286
+     275,   276,   277,   278,   279,   280,   281,   282
 };
 # endif
 
@@ -603,16 +597,15 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int16 yypact[] =
 {
-     -20,    23,   -20,    15,   -20,     0,   -20,   -20,    51,    35,
-     -20,    27,     9,   -20,     9,   -20,   -20,   -20,   -20,    91,
-       9,   -20,   -20,     9,    46,    68,   -20,    60,    92,   -20,
-      73,    -7,   -20,    75,    81,    91,   -20,    84,    40,    88,
-     118,    34,    89,    70,   138,    93,    81,    83,   -20,   112,
-     120,   135,    91,    24,    24,   143,   143,   143,   -20,   -20,
-     -20,     9,   -20,    89,   -20,   -20,   -20,   -20,   -20,   -20,
-     -20,   -20,   -20,     9,   112,   -20,   120,    92,   135,   101,
-     -20,    24,    -7,    -7,   143,   -20,   -20,   -20,   -20,    94,
-      88,    34,    11,   138,    93,     9,   -20
+     -20,     3,   -20,   -17,   -20,     9,   -20,   -20,    26,     7,
+     -20,     1,    87,   -20,    87,   -20,   -20,   -20,   -20,   107,
+      87,   -20,   -20,    87,    17,    38,    30,    45,   -20,    62,
+      -5,   -20,    36,    67,   107,   -20,    47,    29,    12,    22,
+      59,    32,    11,    61,    67,    37,   -20,   119,   131,   107,
+     100,   100,   128,   128,   128,   -20,   -20,    87,   -20,    59,
+     -20,   -20,   -20,   -20,   -20,   -20,   -20,   -20,    87,   119,
+      30,   131,    45,   -20,   100,    -5,    -5,   128,   -20,   -20,
+     -20,   -20,    56,    12,    22,    11,    61,    87,   -20
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -621,29 +614,28 @@ static const yytype_int16 yypact[] =
 static const yytype_int8 yydefact[] =
 {
        5,     0,     2,     0,     1,     0,     4,     3,    10,     0,
-       9,     0,     0,     8,     0,    49,    41,    30,    31,     0,
-       0,    43,    49,     0,     0,    13,    15,    18,    22,    25,
-      28,    32,    36,     0,    42,     0,    27,     0,     0,    15,
-      18,    22,    25,    28,    32,    36,    44,     0,     7,     0,
-       0,     0,     0,     0,     0,     0,     0,     0,     6,    46,
-      43,     0,    45,     0,    11,    14,    17,    20,    23,    26,
-      29,    35,    40,     0,     0,    16,     0,    21,     0,    19,
-      24,     0,    33,    34,     0,    38,    39,    37,    48,     0,
-       0,     0,     0,     0,     0,     0,    12
+       9,     0,     0,     8,     0,    45,    38,    27,    28,     0,
+       0,    40,    45,     0,     0,    13,    15,    19,    22,    25,
+      29,    33,     0,    39,     0,    24,     0,     0,    15,    19,
+      22,    25,    29,    33,    41,     0,     7,     0,     0,     0,
+       0,     0,     0,     0,     0,     6,    43,     0,    42,     0,
+      11,    14,    17,    20,    23,    26,    32,    37,     0,     0,
+      16,     0,    18,    21,     0,    30,    31,     0,    35,    36,
+      34,    44,     0,     0,     0,     0,     0,     0,    12
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-     -20,   -20,   -20,   -20,   -20,   -20,   -20,   -12,    99,   -14,
-     -11,     1,    -2,     4,   -10,   -19,    98
+     -20,   -20,   -20,   -20,   -20,   -20,   -20,   -12,    63,   -15,
+      -2,    -6,    -3,   -10,   -19,    60
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     1,     2,     3,     6,     7,    11,    62,    25,    26,
-      27,    28,    29,    30,    31,    32,    34
+      -1,     1,     2,     3,     6,     7,    11,    58,    25,    26,
+      27,    28,    29,    30,    31,    33
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -651,80 +643,77 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-      24,    45,    33,     8,    55,    56,    39,     9,    37,    40,
-      44,    47,    15,    16,    17,    18,    45,    36,    42,    19,
-      50,    41,    57,     4,    43,    44,    20,    15,    16,    67,
-      13,    21,    22,    63,    23,    75,    85,    86,    87,    43,
-      79,    81,    52,    82,    83,     5,    21,    22,    14,    88,
-      80,    77,    68,    49,    10,    45,    12,    45,    65,    45,
-      90,    89,    45,    40,    44,    94,    44,    92,    44,    50,
-      48,    93,    42,    51,    42,    41,    42,    91,    43,    41,
-      43,    49,    43,    96,    59,    16,    17,    18,    70,    53,
-      54,    19,    53,    54,    15,    16,    17,    18,    20,    58,
-      52,    19,    64,    60,    22,    66,    23,    69,    35,    73,
-      50,    72,    61,    21,    22,    15,    16,    17,    18,    38,
-      46,    95,    19,    15,    16,    17,    18,    50,     0,    74,
-      19,    51,     0,     0,    21,    22,    67,    76,    15,    16,
-      17,    18,    21,    22,     0,    19,    15,    16,     0,    55,
-      56,     0,    78,     0,     0,     0,    71,    21,    22,     0,
-      84,     0,     0,     0,     0,    21,    22,    57
+      24,    43,    32,     4,    13,    38,    52,    53,    36,     5,
+      42,    45,     8,    35,    40,    43,     9,    41,    39,    14,
+      54,    48,    52,    53,    42,    12,    66,    62,    59,    10,
+      49,    41,    70,    78,    79,    80,    54,    63,    46,    48,
+      75,    76,    47,    73,    61,    81,    72,    65,    50,    51,
+      43,    47,    43,    49,    83,    43,    82,    55,    86,    42,
+      68,    42,    60,    40,    85,    40,    41,    39,    41,    84,
+      56,    16,    17,    18,    64,    88,    67,    19,    50,    51,
+      87,    20,    44,    37,     0,     0,    21,    22,     0,    23,
+      15,    16,    17,    18,    57,     0,     0,    19,     0,     0,
+       0,    20,     0,    15,    16,     0,    21,    22,     0,    23,
+      15,    16,    17,    18,    74,     0,     0,    19,     0,    21,
+      22,    34,    15,    16,    17,    18,    21,    22,     0,    19,
+       0,    15,    16,    69,    15,    16,    17,    18,    21,    22,
+       0,    19,    77,     0,     0,    71,     0,    21,    22,     0,
+      21,    22
 };
 
 static const yytype_int8 yycheck[] =
 {
-      12,    20,    14,     3,    11,    12,    20,     7,    20,    20,
-      20,    23,     3,     4,     5,     6,    35,    19,    20,    10,
-       9,    20,    29,     0,    20,    35,    17,     3,     4,    18,
-       3,    22,    23,    35,    25,    49,    55,    56,    57,    35,
-      51,    17,     8,    53,    54,    30,    22,    23,    21,    61,
-      52,    50,    18,    13,     3,    74,    21,    76,    18,    78,
-      74,    73,    81,    74,    74,    84,    76,    78,    78,     9,
-      24,    81,    74,    13,    76,    74,    78,    76,    74,    78,
-      76,    13,    78,    95,     3,     4,     5,     6,    18,    19,
-      20,    10,    19,    20,     3,     4,     5,     6,    17,    24,
-       8,    10,    18,    22,    23,    17,    25,    18,    17,    26,
-       9,    18,    31,    22,    23,     3,     4,     5,     6,    20,
-      22,    27,    10,     3,     4,     5,     6,     9,    -1,    17,
-      10,    13,    -1,    -1,    22,    23,    18,    17,     3,     4,
-       5,     6,    22,    23,    -1,    10,     3,     4,    -1,    11,
-      12,    -1,    17,    -1,    -1,    -1,    18,    22,    23,    -1,
-      17,    -1,    -1,    -1,    -1,    22,    23,    29
+      12,    20,    14,     0,     3,    20,    11,    12,    20,    26,
+      20,    23,     3,    19,    20,    34,     7,    20,    20,    18,
+      25,     9,    11,    12,    34,    18,    15,    15,    34,     3,
+       8,    34,    47,    52,    53,    54,    25,    15,    21,     9,
+      50,    51,    13,    49,    15,    57,    48,    15,    16,    17,
+      69,    13,    71,     8,    69,    74,    68,    21,    77,    69,
+      23,    71,    15,    69,    74,    71,    69,    69,    71,    71,
+       3,     4,     5,     6,    15,    87,    15,    10,    16,    17,
+      24,    14,    22,    20,    -1,    -1,    19,    20,    -1,    22,
+       3,     4,     5,     6,    27,    -1,    -1,    10,    -1,    -1,
+      -1,    14,    -1,     3,     4,    -1,    19,    20,    -1,    22,
+       3,     4,     5,     6,    14,    -1,    -1,    10,    -1,    19,
+      20,    14,     3,     4,     5,     6,    19,    20,    -1,    10,
+      -1,     3,     4,    14,     3,     4,     5,     6,    19,    20,
+      -1,    10,    14,    -1,    -1,    14,    -1,    19,    20,    -1,
+      19,    20
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,    33,    34,    35,     0,    30,    36,    37,     3,     7,
-       3,    38,    21,     3,    21,     3,     4,     5,     6,    10,
-      17,    22,    23,    25,    39,    40,    41,    42,    43,    44,
-      45,    46,    47,    39,    48,    17,    44,    39,    40,    41,
-      42,    43,    44,    45,    46,    47,    48,    39,    24,    13,
-       9,    13,     8,    19,    20,    11,    12,    29,    24,     3,
-      22,    31,    39,    44,    18,    18,    17,    18,    18,    18,
-      18,    18,    18,    26,    17,    41,    17,    43,    17,    42,
-      44,    17,    46,    46,    17,    47,    47,    47,    39,    39,
-      41,    43,    42,    46,    47,    27,    39
+       0,    29,    30,    31,     0,    26,    32,    33,     3,     7,
+       3,    34,    18,     3,    18,     3,     4,     5,     6,    10,
+      14,    19,    20,    22,    35,    36,    37,    38,    39,    40,
+      41,    42,    35,    43,    14,    39,    35,    36,    37,    38,
+      39,    40,    41,    42,    43,    35,    21,    13,     9,     8,
+      16,    17,    11,    12,    25,    21,     3,    27,    35,    39,
+      15,    15,    15,    15,    15,    15,    15,    15,    23,    14,
+      37,    14,    38,    39,    14,    41,    41,    14,    42,    42,
+      42,    35,    35,    37,    38,    41,    42,    24,    35
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    32,    33,    34,    35,    35,    36,    37,    38,    38,
-      38,    39,    39,    39,    40,    40,    40,    41,    41,    41,
-      42,    42,    42,    43,    43,    43,    44,    44,    44,    45,
-      45,    45,    45,    45,    45,    46,    46,    46,    46,    46,
-      47,    47,    47,    47,    47,    48,    48,    48,    48,    48
+       0,    28,    29,    30,    31,    31,    32,    33,    34,    34,
+      34,    35,    35,    35,    36,    36,    36,    37,    37,    37,
+      38,    38,    38,    39,    39,    39,    40,    40,    40,    40,
+      40,    40,    41,    41,    41,    41,    41,    42,    42,    42,
+      42,    42,    43,    43,    43,    43
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
        0,     2,     1,     2,     2,     0,     6,     5,     2,     1,
-       0,     3,     6,     1,     3,     1,     3,     3,     1,     3,
-       3,     3,     1,     3,     3,     1,     3,     2,     1,     3,
-       1,     1,     1,     3,     3,     3,     1,     3,     3,     3,
-       3,     1,     2,     1,     2,     2,     2,     2,     3,     0
+       0,     3,     6,     1,     3,     1,     3,     3,     3,     1,
+       3,     3,     1,     3,     2,     1,     3,     1,     1,     1,
+       3,     3,     3,     1,     3,     3,     3,     3,     1,     2,
+       1,     2,     2,     2,     3,     0
 };
 
 
@@ -1420,42 +1409,42 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 40 "grammar.y"
+#line 39 "grammar.y"
             { result = new std::string(std::string("#include<bits/stdc++.h>\n\n") + *((yyvsp[0].str))); }
-#line 1426 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1415 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 3:
-#line 44 "grammar.y"
+#line 43 "grammar.y"
                        {
     	auto ans = new std::string(*(yyvsp[-1].str));
     	*ans += *(yyvsp[0].str);
     	(yyval.str) = ans;
     }
-#line 1436 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1425 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 4:
-#line 52 "grammar.y"
+#line 51 "grammar.y"
                        {
     	auto ans = new std::string();
     	*ans += *(yyvsp[-1].str);
     	*ans += *(yyvsp[0].str);
     	(yyval.str) = ans;
     }
-#line 1447 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1436 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 5:
-#line 58 "grammar.y"
+#line 57 "grammar.y"
       {
     	(yyval.str) = new std::string();
     }
-#line 1455 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1444 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 6:
-#line 64 "grammar.y"
+#line 63 "grammar.y"
                                            {
         auto ret = new std::string("int " + (*(yyvsp[-4].str)) + "(");
         auto vectV = ((yyvsp[-3].ret));
@@ -1472,11 +1461,11 @@ yyreduce:
         *ret += "}\n";
         (yyval.str) = ret;
     }
-#line 1476 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1465 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 7:
-#line 83 "grammar.y"
+#line 82 "grammar.y"
                                   {
         auto ret = new std::string("int " + (*(yyvsp[-3].str)) + "(");
         *ret +=  ") {\n";
@@ -1485,50 +1474,50 @@ yyreduce:
         *ret += "}\n";
         (yyval.str) = ret;
     }
-#line 1489 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1478 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 8:
-#line 94 "grammar.y"
+#line 93 "grammar.y"
                   {
         auto ret = ((yyvsp[-1].ret));
         funcVars.insert(*(yyvsp[0].str));
         ret->push_back(*((yyvsp[0].str)));
         (yyval.ret) = ret;
     }
-#line 1500 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1489 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 9:
-#line 100 "grammar.y"
+#line 99 "grammar.y"
            {
         auto ret = new std::vector<std::string>();
         funcVars.insert(*(yyvsp[0].str));
         ret->push_back(*(yyvsp[0].str));
         (yyval.ret) = ret;
     }
-#line 1511 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1500 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 10:
-#line 106 "grammar.y"
+#line 105 "grammar.y"
       {
         auto ret = new std::vector<std::string>();
         (yyval.ret) = ret;
     }
-#line 1520 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1509 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 11:
-#line 113 "grammar.y"
+#line 112 "grammar.y"
                            {
         (yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1528 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1517 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 12:
-#line 116 "grammar.y"
+#line 115 "grammar.y"
                                   {
         std::string ans = "";
         ans += (yyvsp[-4].exprRet)->first;
@@ -1543,35 +1532,35 @@ yyreduce:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1547 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1536 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 13:
-#line 130 "grammar.y"
+#line 129 "grammar.y"
             {
         (yyval.exprRet) = (yyvsp[0].exprRet);
     }
-#line 1555 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1544 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 14:
-#line 136 "grammar.y"
+#line 135 "grammar.y"
                             {
         (yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1563 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1552 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 15:
-#line 139 "grammar.y"
+#line 138 "grammar.y"
             {
         (yyval.exprRet) = (yyvsp[0].exprRet);
     }
-#line 1571 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1560 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 16:
-#line 142 "grammar.y"
+#line 141 "grammar.y"
                        {
         std::string ans;
         ans += (yyvsp[-2].exprRet)->first;
@@ -1580,48 +1569,19 @@ yyreduce:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1584 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1573 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 17:
-#line 153 "grammar.y"
+#line 152 "grammar.y"
                             {
         (yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1592 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1581 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
   case 18:
-#line 156 "grammar.y"
-            {
-    	(yyval.exprRet) = (yyvsp[0].exprRet);
-    }
-#line 1600 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
-    break;
-
-  case 19:
-#line 159 "grammar.y"
-                       {
-        std::string ans;
-        ans += (yyvsp[-2].exprRet)->first;
-        ans += (yyvsp[0].exprRet)->first;
-        ans += "int " + nextVar() + " = int(" + (yyvsp[-2].exprRet)->second + " " + (*(yyvsp[-1].str)) + " " + (yyvsp[0].exprRet)->second + ");\n";
-        auto ret = new std::pair<std::string, std::string>(ans, curVar());
-        (yyval.exprRet) = ret;
-    }
-#line 1613 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
-    break;
-
-  case 20:
-#line 170 "grammar.y"
-                            {
-        (yyval.exprRet) = (yyvsp[-1].exprRet);
-    }
-#line 1621 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
-    break;
-
-  case 21:
-#line 173 "grammar.y"
+#line 155 "grammar.y"
                      {
         std::string ans = "";
         ans += (yyvsp[-2].exprRet)->first;
@@ -1630,27 +1590,27 @@ yyreduce:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1634 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1594 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 22:
-#line 181 "grammar.y"
+  case 19:
+#line 163 "grammar.y"
             {
         (yyval.exprRet) = (yyvsp[0].exprRet);
     }
-#line 1642 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1602 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 23:
-#line 187 "grammar.y"
+  case 20:
+#line 169 "grammar.y"
                             {
         (yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1650 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1610 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 24:
-#line 190 "grammar.y"
+  case 21:
+#line 172 "grammar.y"
                       {
         std::string ans = "";
         ans += (yyvsp[-2].exprRet)->first;
@@ -1659,27 +1619,27 @@ yyreduce:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1663 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1623 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 25:
-#line 198 "grammar.y"
+  case 22:
+#line 180 "grammar.y"
             {
         (yyval.exprRet) = (yyvsp[0].exprRet);
     }
-#line 1671 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1631 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 26:
-#line 204 "grammar.y"
+  case 23:
+#line 186 "grammar.y"
                             {
         (yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1679 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1639 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 27:
-#line 207 "grammar.y"
+  case 24:
+#line 189 "grammar.y"
                 {
         std::string ans = "";
         ans = (yyvsp[0].exprRet)->first;
@@ -1687,57 +1647,57 @@ yyreduce:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1691 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1651 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 28:
-#line 214 "grammar.y"
+  case 25:
+#line 196 "grammar.y"
             {
         (yyval.exprRet) = (yyvsp[0].exprRet);
     }
-#line 1699 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1659 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 29:
-#line 220 "grammar.y"
+  case 26:
+#line 202 "grammar.y"
                             {
         (yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1707 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1667 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 30:
-#line 223 "grammar.y"
+  case 27:
+#line 205 "grammar.y"
            {
         std::string ans;
         ans += "int " + nextVar() + " = 1;\n";
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1718 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1678 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 31:
-#line 229 "grammar.y"
+  case 28:
+#line 211 "grammar.y"
             {
         std::string ans;
         ans += "int " + nextVar() + " = 0;\n";
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1729 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1689 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 32:
-#line 235 "grammar.y"
+  case 29:
+#line 217 "grammar.y"
             {
     	(yyval.exprRet) = (yyvsp[0].exprRet);
     }
-#line 1737 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1697 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 33:
-#line 238 "grammar.y"
+  case 30:
+#line 220 "grammar.y"
                        {
     	std::string ans;
         ans += (yyvsp[-2].exprRet)->first;
@@ -1746,11 +1706,11 @@ yyreduce:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
-#line 1750 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1710 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 34:
-#line 246 "grammar.y"
+  case 31:
+#line 228 "grammar.y"
                         {
     	std::string ans;
     	ans += (yyvsp[-2].exprRet)->first;
@@ -1759,27 +1719,27 @@ yyreduce:
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	(yyval.exprRet) = ret;
     }
-#line 1763 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1723 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 35:
-#line 257 "grammar.y"
+  case 32:
+#line 239 "grammar.y"
                             {
     	(yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1771 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1731 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 36:
-#line 260 "grammar.y"
+  case 33:
+#line 242 "grammar.y"
             {
     	(yyval.exprRet) = (yyvsp[0].exprRet);
     }
-#line 1779 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1739 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 37:
-#line 263 "grammar.y"
+  case 34:
+#line 245 "grammar.y"
                       {
     	std::string ans;
     	ans += (yyvsp[-2].exprRet)->first;
@@ -1788,11 +1748,11 @@ yyreduce:
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	(yyval.exprRet) = ret;
     }
-#line 1792 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1752 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 38:
-#line 271 "grammar.y"
+  case 35:
+#line 253 "grammar.y"
                       {
     	std::string ans;
     	ans += (yyvsp[-2].exprRet)->first;
@@ -1801,11 +1761,11 @@ yyreduce:
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	(yyval.exprRet) = ret;
     }
-#line 1805 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1765 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 39:
-#line 279 "grammar.y"
+  case 36:
+#line 261 "grammar.y"
                       {
     	std::string ans;
     	ans += (yyvsp[-2].exprRet)->first;
@@ -1814,30 +1774,30 @@ yyreduce:
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	(yyval.exprRet) = ret;
     }
-#line 1818 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1778 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 40:
-#line 290 "grammar.y"
+  case 37:
+#line 272 "grammar.y"
                             {
     	(yyval.exprRet) = (yyvsp[-1].exprRet);
     }
-#line 1826 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1786 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 41:
-#line 293 "grammar.y"
+  case 38:
+#line 275 "grammar.y"
              {
     	std::string ans;
     	ans += "int " + nextVar() + " = " + *(yyvsp[0].str) + ";\n";
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	(yyval.exprRet) = ret;
     }
-#line 1837 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1797 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 42:
-#line 299 "grammar.y"
+  case 39:
+#line 281 "grammar.y"
                 {
     	std::string name = *((yyvsp[-1].str));
     	std::string ans;
@@ -1855,22 +1815,22 @@ yyreduce:
 	auto ret = new std::pair<std::string, std::string>(ans, curVar());
 	(yyval.exprRet) = ret;
     }
-#line 1859 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1819 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 43:
-#line 316 "grammar.y"
+  case 40:
+#line 298 "grammar.y"
               {
     	std::string ans = "int " + nextVar() + ";\n";
     	ans += "std::cin >> " + curVar() + ";\n";
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	(yyval.exprRet) = ret;
     }
-#line 1870 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1830 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 44:
-#line 322 "grammar.y"
+  case 41:
+#line 304 "grammar.y"
                     {
     	std::string ans = (yyvsp[0].varRet)->first;
     	ans += "std::cout";
@@ -1882,11 +1842,11 @@ yyreduce:
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	(yyval.exprRet) = ret;
     }
-#line 1886 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1846 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 45:
-#line 336 "grammar.y"
+  case 42:
+#line 318 "grammar.y"
               {
     	std::vector<std::string> vect = (yyvsp[-1].varRet)->second;
     	std::string ans = (yyvsp[-1].varRet)->first + (yyvsp[0].exprRet)->first;
@@ -1894,11 +1854,11 @@ yyreduce:
     	auto ret = new std::pair<std::string, std::vector<std::string> >(ans, vect);
     	(yyval.varRet) = ret;
     }
-#line 1898 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1858 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 46:
-#line 343 "grammar.y"
+  case 43:
+#line 325 "grammar.y"
                 {
     	std::vector<std::string> vect = (yyvsp[-1].varRet)->second;
     	std::string ans = (yyvsp[-1].varRet)->first;
@@ -1906,25 +1866,11 @@ yyreduce:
     	auto ret = new std::pair<std::string, std::vector<std::string> >(ans, vect);
     	(yyval.varRet) = ret;
     }
-#line 1910 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1870 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 47:
-#line 350 "grammar.y"
-                   {
-    	std::vector<std::string> vect = (yyvsp[-1].varRet)->second;
-    	std::string ans = (yyvsp[-1].varRet)->first;
-    	ans += "int " + nextVar() + ";\n";
-        ans += "std::cin >> " + curVar() + ";\n";
-    	vect.push_back(curVar());
-    	auto ret = new std::pair<std::string, std::vector<std::string> >(ans, vect);
-    	(yyval.varRet) = ret;
-    }
-#line 1924 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
-    break;
-
-  case 48:
-#line 359 "grammar.y"
+  case 44:
+#line 332 "grammar.y"
                        {
     	std::vector<std::string> vect = (yyvsp[-2].varRet)->second;
         std::string ans = (yyvsp[-2].varRet)->first + (yyvsp[0].exprRet)->first;
@@ -1932,20 +1878,20 @@ yyreduce:
         auto ret = new std::pair<std::string, std::vector<std::string> >(ans, vect);
         (yyval.varRet) = ret;
     }
-#line 1936 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1882 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
-  case 49:
-#line 366 "grammar.y"
+  case 45:
+#line 339 "grammar.y"
       {
     	auto ret = new std::pair<std::string, std::vector<std::string> >();
     	(yyval.varRet) = ret;
     }
-#line 1945 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1891 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
     break;
 
 
-#line 1949 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
+#line 1895 "/home/kranya/MT/FunctionalParser/grammar.tab.cpp"
 
       default: break;
     }
@@ -2177,4 +2123,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 371 "grammar.y"
+#line 344 "grammar.y"

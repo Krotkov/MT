@@ -1,7 +1,6 @@
 %{
 #include <bits/stdc++.h>
 #include "grammar.tab.hpp"
-#include <string>
 %}
 
 %option outfile = "grammar.lexer.cpp" header-file = "grammar.lexer.hpp"
@@ -9,25 +8,13 @@
 white [ \t\n]
 digit [0-9]
 letter [a-z]
-name {letter}({letter}|{digit})*
+name {letter}({letter}|{digit}|[A-Z])*
 number ({digit})*
 comp "=="|"!="|">"|">="|"<"|"<="
 
 %%
 {white}      ;
 
-"Integer" {
-    yylval.str = new std::string("int32_t");
-    return INT;
-}
-"Float" {
-    yylval.str = new std::string("float");
-    return FLOAT;
-}
-"Bool" {
-    yylval.str = new std::string("bool");
-    return BOOL;
-}
 "True" {
     yylval.str = new std::string("true");
     return TRUE;
@@ -64,7 +51,6 @@ comp "=="|"!="|">"|">="|"<"|"<="
 "writeInt" {return WRITEINT;}
 "let"   {return LET;}
 "$"  {return DOLLAR;}
-","  {return COMMA;}
 ";" {return SEMICOLON;}
 "if" {return IF;}
 "then" {return THEN;}

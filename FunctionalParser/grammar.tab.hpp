@@ -60,24 +60,20 @@ extern int yydebug;
     DIV = 266,
     MOD = 267,
     COMP = 268,
-    INT = 269,
-    FLOAT = 270,
-    BOOL = 271,
-    LBRACKET = 272,
-    RBRACKET = 273,
-    PLUS = 274,
-    MINUS = 275,
-    EQUAL = 276,
-    READINT = 277,
-    WRITEINT = 278,
-    SEMICOLON = 279,
-    IF = 280,
-    THEN = 281,
-    ELSE = 282,
-    COMMA = 283,
-    MUL = 284,
-    LET = 285,
-    DOLLAR = 286
+    LBRACKET = 269,
+    RBRACKET = 270,
+    PLUS = 271,
+    MINUS = 272,
+    EQUAL = 273,
+    READINT = 274,
+    WRITEINT = 275,
+    SEMICOLON = 276,
+    IF = 277,
+    THEN = 278,
+    ELSE = 279,
+    MUL = 280,
+    LET = 281,
+    DOLLAR = 282
   };
 #endif
 
@@ -92,7 +88,7 @@ union YYSTYPE
     std::vector<std::string>* ret;
     std::string* str;
 
-#line 96 "/home/kranya/MT/FunctionalParser/grammar.tab.hpp"
+#line 92 "/home/kranya/MT/FunctionalParser/grammar.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

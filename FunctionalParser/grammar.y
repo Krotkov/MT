@@ -26,11 +26,10 @@
 
 %type <ret> FUNCVARS
 %type <str> Input PROGRAM MAINFUNC FUNCTIONS FUNCTION
-%type <exprRet> EXPR EXPR1 EXPR2 EXPR3 EXPR4 EXPR5 EXPR6 EXPR7 EXPR8
+%type <exprRet> EXPR EXPR1 EXPR2 EXPR3 EXPR4 EXPR5 EXPR6 EXPR7
 %type <varRet> VARS
 %token <str> NAME NUMBER TRUE FALSE MAIN AND OR NOT DIV MOD COMP
-%token <str> INT FLOAT BOOL
-%token LBRACKET RBRACKET PLUS MINUS EQUAL READINT WRITEINT SEMICOLON IF THEN ELSE COMMA MUL LET DOLLAR
+%token LBRACKET RBRACKET PLUS MINUS EQUAL READINT WRITEINT SEMICOLON IF THEN ELSE MUL LET DOLLAR
 
 %start Input
 
@@ -150,19 +149,19 @@ EXPR1:
 ;
 
 EXPR2:
-    LBRACKET EXPR2 LBRACKET {
+    LBRACKET EXPR2 RBRACKET {
         $$ = $2;
     }
-    | EXPR3 {
-    	$$ = $1;
-    }
-    | EXPR3 COMP EXPR3 {
-        std::string ans;
+    | EXPR2 OR EXPR3 {
+        std::string ans = "";
         ans += $1->first;
         ans += $3->first;
-        ans += "int " + nextVar() + " = int(" + $1->second + " " + (*$2) + " " + $3->second + ");\n";
+        ans += "int " + nextVar() + "=" + $1->second + " " + (*$2) + " " + $3->second + ";\n";
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         $$ = ret;
+    }
+    | EXPR3 {
+        $$ = $1;
     }
 ;
 
@@ -170,7 +169,7 @@ EXPR3:
     LBRACKET EXPR3 RBRACKET {
         $$ = $2;
     }
-    | EXPR3 OR EXPR4 {
+    | EXPR3 AND EXPR4 {
         std::string ans = "";
         ans += $1->first;
         ans += $3->first;
@@ -187,11 +186,10 @@ EXPR4:
     LBRACKET EXPR4 RBRACKET {
         $$ = $2;
     }
-    | EXPR4 AND EXPR5 {
+    | NOT EXPR4 {
         std::string ans = "";
-        ans += $1->first;
-        ans += $3->first;
-        ans += "int " + nextVar() + "=" + $1->second + " " + (*$2) + " " + $3->second + ";\n";
+        ans = $2->first;
+        ans += "int " + nextVar() + " = !" + $2->second + ";\n";
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         $$ = ret;
     }
@@ -202,22 +200,6 @@ EXPR4:
 
 EXPR5:
     LBRACKET EXPR5 RBRACKET {
-        $$ = $2;
-    }
-    | NOT EXPR5 {
-        std::string ans = "";
-        ans = $2->first;
-        ans += "int " + nextVar() + " = !" + $2->second + ";\n";
-        auto ret = new std::pair<std::string, std::string>(ans, curVar());
-        $$ = ret;
-    }
-    | EXPR6 {
-        $$ = $1;
-    }
-;
-
-EXPR6:
-    LBRACKET EXPR6 RBRACKET {
         $$ = $2;
     }
     | TRUE {
@@ -232,10 +214,10 @@ EXPR6:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         $$ = ret;
     }
-    | EXPR7 {
+    | EXPR6 {
     	$$ = $1;
     }
-    | EXPR6 PLUS EXPR7 {
+    | EXPR5 PLUS EXPR6 {
     	std::string ans;
         ans += $1->first;
         ans += $3->first;
@@ -243,7 +225,7 @@ EXPR6:
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         $$ = ret;
     }
-    | EXPR6 MINUS EXPR7 {
+    | EXPR5 MINUS EXPR6 {
     	std::string ans;
     	ans += $1->first;
     	ans += $3->first;
@@ -253,14 +235,14 @@ EXPR6:
     }
 ;
 
-EXPR7:
-    LBRACKET EXPR7 RBRACKET {
+EXPR6:
+    LBRACKET EXPR6 RBRACKET {
     	$$ = $2;
     }
-    | EXPR8 {
+    | EXPR7 {
     	$$ = $1;
     }
-    | EXPR7 MUL EXPR8 {
+    | EXPR6 MUL EXPR7 {
     	std::string ans;
     	ans += $1->first;
     	ans += $3->first;
@@ -268,7 +250,7 @@ EXPR7:
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	$$ = ret;
     }
-    | EXPR7 DIV EXPR8 {
+    | EXPR6 DIV EXPR7 {
     	std::string ans;
     	ans += $1->first;
     	ans += $3->first;
@@ -276,7 +258,7 @@ EXPR7:
     	auto ret = new std::pair<std::string, std::string>(ans, curVar());
     	$$ = ret;
     }
-    | EXPR7 MOD EXPR8 {
+    | EXPR6 MOD EXPR7 {
     	std::string ans;
     	ans += $1->first;
     	ans += $3->first;
@@ -286,8 +268,8 @@ EXPR7:
     }
 ;
 
-EXPR8:
-    LBRACKET EXPR8 RBRACKET {
+EXPR7:
+    LBRACKET EXPR7 RBRACKET {
     	$$ = $2;
     }
     | NUMBER {
@@ -344,15 +326,6 @@ VARS:
     	std::vector<std::string> vect = $1->second;
     	std::string ans = $1->first;
     	vect.push_back(*$2);
-    	auto ret = new std::pair<std::string, std::vector<std::string> >(ans, vect);
-    	$$ = ret;
-    }
-    | VARS READINT {
-    	std::vector<std::string> vect = $1->second;
-    	std::string ans = $1->first;
-    	ans += "int " + nextVar() + ";\n";
-        ans += "std::cin >> " + curVar() + ";\n";
-    	vect.push_back(curVar());
     	auto ret = new std::pair<std::string, std::vector<std::string> >(ans, vect);
     	$$ = ret;
     }
