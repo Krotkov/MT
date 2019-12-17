@@ -1,4 +1,5 @@
 let gcdHelp a b = if (b == 0) then a else gcdHelp b (a mod b);
+
 let gcd a b = if (a > b) then gcdHelp a b else gcdHelp b a;
-let gcd3 a b c = gcd (gcd a b) c;
-let Main = writeInt $ gcd3 readInt readInt readInt;
+
+let Main = writeInt $ gcd readInt readInt;
