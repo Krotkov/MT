@@ -142,7 +142,7 @@ EXPR1:
         std::string ans;
         ans += $1->first;
         ans += $3->first;
-        ans += "int " + nextVar() + " = " + $1->second + (*$2) + $3->second + ";\n";
+        ans += "int " + nextVar() + " = " + $1->second + " " + (*$2) + " " + $3->second + ";\n";
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         $$ = ret;
     }

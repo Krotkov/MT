@@ -1565,7 +1565,7 @@ yyreduce:
         std::string ans;
         ans += (yyvsp[-2].exprRet)->first;
         ans += (yyvsp[0].exprRet)->first;
-        ans += "int " + nextVar() + " = " + (yyvsp[-2].exprRet)->second + (*(yyvsp[-1].str)) + (yyvsp[0].exprRet)->second + ";\n";
+        ans += "int " + nextVar() + " = " + (yyvsp[-2].exprRet)->second + " " + (*(yyvsp[-1].str)) + " " + (yyvsp[0].exprRet)->second + ";\n";
         auto ret = new std::pair<std::string, std::string>(ans, curVar());
         (yyval.exprRet) = ret;
     }
