@@ -6,11 +6,11 @@ set(CMAKE_CXX_STANDARD 14)
 find_package(BISON REQUIRED)
 find_package(FLEX REQUIRED)
 
-BISON_TARGET(MyParser generatorGrammar.y ${PROJECT_SOURCE_DIR}/generatorGrammar.tab.cpp)
-FLEX_TARGET(MyScanner generatorGrammar.l ${PROJECT_SOURCE_DIR}/generatorGrammar.lexer.cpp)
+BISON_TARGET(MyParser generatorLexer.y ${PROJECT_SOURCE_DIR}/generatorLexer.tab.cpp)
+FLEX_TARGET(MyScanner generatorLexer.l ${PROJECT_SOURCE_DIR}/generatorLexer.lexer.cpp)
 ADD_FLEX_BISON_DEPENDENCY(MyScanner MyParser)
 
-add_executable(grammarGeneratorParser
+add_executable(generator
         main.cpp
         Generator.cpp
         ${BISON_MyParser_OUTPUTS}

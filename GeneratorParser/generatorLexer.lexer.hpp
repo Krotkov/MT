@@ -2,9 +2,9 @@
 #define yyHEADER_H 1
 #define yyIN_HEADER 1
 
-#line 6 "generatorGrammar.lexer.hpp"
+#line 6 "generatorLexer.lexer.hpp"
 
-#line 8 "generatorGrammar.lexer.hpp"
+#line 8 "generatorLexer.lexer.hpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -466,9 +466,9 @@ extern int yylex (void);
 #undef yyTABLES_NAME
 #endif
 
-#line 57 "generatorGrammar.l"
+#line 57 "generatorLexer.l"
 
 
-#line 473 "generatorGrammar.lexer.hpp"
+#line 473 "generatorLexer.lexer.hpp"
 #undef yyIN_HEADER
 #endif /* yyHEADER_H */

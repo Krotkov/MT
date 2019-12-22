@@ -1,9 +1,9 @@
 %{
 #include <bits/stdc++.h>
-#include "generatorGrammar.tab.hpp"
+#include "generatorLexer.tab.hpp"
 %}
 
-%option outfile = "generatorGrammar.lexer.cpp" header-file = "generatorGrammar.lexer.hpp"
+%option outfile = "generatorLexer.lexer.cpp" header-file = "generatorLexer.lexer.hpp"
 
 white [ \t\n]*
 digit [0-9]

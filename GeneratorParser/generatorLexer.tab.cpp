@@ -66,7 +66,7 @@
 
 
 /* First part of user prologue.  */
-#line 1 "generatorGrammar.y"
+#line 1 "generatorLexer.y"
 
 	#include <bits/stdc++.h>
 	#include <regex>
@@ -79,7 +79,7 @@
 	std::vector<std::string> tokens;
 	std::unordered_set<std::string> skipp;
 
-#line 83 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 83 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -112,8 +112,8 @@
 
 /* Use api.header.include to #include this header
    instead of duplicating it here.  */
-#ifndef YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORGRAMMAR_TAB_HPP_INCLUDED
-# define YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORGRAMMAR_TAB_HPP_INCLUDED
+#ifndef YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORLEXER_TAB_HPP_INCLUDED
+# define YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORLEXER_TAB_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -145,11 +145,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "generatorGrammar.y"
+#line 14 "generatorLexer.y"
 
     std::string* str;
 
-#line 153 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 153 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -162,7 +162,7 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORGRAMMAR_TAB_HPP_INCLUDED  */
+#endif /* !YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORLEXER_TAB_HPP_INCLUDED  */
 
 
 
@@ -1325,91 +1325,91 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 26 "generatorGrammar.y"
+#line 26 "generatorLexer.y"
                                                                                      {
 	    header = *(yyvsp[-8].str);
 	    result = new std::string(*(yyvsp[-9].str) + "\n" + *(yyvsp[-8].str) + *(yyvsp[-7].str) + "\n%tokens " + *(yyvsp[-5].str) + "\n%skip " + *(yyvsp[-3].str) + "\n%%\n" + *(yyvsp[-1].str) + "\n%%\n");
 	}
-#line 1334 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1334 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 3:
-#line 31 "generatorGrammar.y"
+#line 31 "generatorLexer.y"
                         {
             skipp.insert(*(yyvsp[-1].str));
             (yyval.str) = new std::string(*(yyvsp[-1].str) + " " + *(yyvsp[0].str));
         }
-#line 1343 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1343 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 4:
-#line 35 "generatorGrammar.y"
+#line 35 "generatorLexer.y"
           {
             (yyval.str) = new std::string("");
         }
-#line 1351 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1351 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 5:
-#line 39 "generatorGrammar.y"
+#line 39 "generatorLexer.y"
                       {
     	    tokens.emplace_back(*(yyvsp[-1].str));
     	    (yyval.str) = new std::string(*(yyvsp[-1].str) + " " + *(yyvsp[0].str));
     	}
-#line 1360 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1360 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 6:
-#line 43 "generatorGrammar.y"
+#line 43 "generatorLexer.y"
           {
     	    (yyval.str) = new std::string("");
     	}
-#line 1368 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1368 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 7:
-#line 47 "generatorGrammar.y"
+#line 47 "generatorLexer.y"
                    {
             (yyval.str) = new std::string(*(yyvsp[-1].str) + *(yyvsp[0].str));
         }
-#line 1376 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1376 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 8:
-#line 50 "generatorGrammar.y"
+#line 50 "generatorLexer.y"
           {
             (yyval.str) = new std::string("");
         }
-#line 1384 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1384 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 9:
-#line 54 "generatorGrammar.y"
+#line 54 "generatorLexer.y"
                             {
 	    regToCode.emplace_back(*(yyvsp[-3].str), *(yyvsp[-1].str));
 	    (yyval.str) = new std::string(*(yyvsp[-3].str) + "\n{\n" + *(yyvsp[-1].str) + "}\n");
 	}
-#line 1393 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1393 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 10:
-#line 59 "generatorGrammar.y"
+#line 59 "generatorLexer.y"
                    {
     	    (yyval.str) = new std::string(*(yyvsp[-1].str) + *(yyvsp[0].str) + "\n");
     	}
-#line 1401 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1401 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
   case 11:
-#line 62 "generatorGrammar.y"
+#line 62 "generatorLexer.y"
           {
     	    (yyval.str) = new std::string("");
     	}
-#line 1409 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1409 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
     break;
 
 
-#line 1413 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.cpp"
+#line 1413 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.cpp"
 
       default: break;
     }
@@ -1641,4 +1641,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 65 "generatorGrammar.y"
+#line 65 "generatorLexer.y"

@@ -34,8 +34,8 @@
 /* Undocumented macros, especially those whose name start with YY_,
    are private implementation details.  Do not rely on them.  */
 
-#ifndef YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORGRAMMAR_TAB_HPP_INCLUDED
-# define YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORGRAMMAR_TAB_HPP_INCLUDED
+#ifndef YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORLEXER_TAB_HPP_INCLUDED
+# define YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORLEXER_TAB_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
@@ -67,11 +67,11 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "generatorGrammar.y"
+#line 14 "generatorLexer.y"
 
     std::string* str;
 
-#line 75 "/home/kranya/MT/GeneratorParser/generatorGrammar.tab.hpp"
+#line 75 "/home/kranya/MT/GeneratorParser/generatorLexer.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -84,4 +84,4 @@ extern YYSTYPE yylval;
 
 int yyparse (void);
 
-#endif /* !YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORGRAMMAR_TAB_HPP_INCLUDED  */
+#endif /* !YY_YY_HOME_KRANYA_MT_GENERATORPARSER_GENERATORLEXER_TAB_HPP_INCLUDED  */

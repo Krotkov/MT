@@ -1,6 +1,6 @@
-#line 2 "generatorGrammar.lexer.cpp"
+#line 2 "generatorLexer.lexer.cpp"
 
-#line 4 "generatorGrammar.lexer.cpp"
+#line 4 "generatorLexer.lexer.cpp"
 
 #define  YY_INT_ALIGNED short int
 
@@ -454,12 +454,12 @@ int yy_flex_debug = 0;
 #define YY_MORE_ADJ 0
 #define YY_RESTORE_YY_MORE_OFFSET
 char *yytext;
-#line 1 "generatorGrammar.l"
-#line 2 "generatorGrammar.l"
+#line 1 "generatorLexer.l"
+#line 2 "generatorLexer.l"
 #include <bits/stdc++.h>
-#include "generatorGrammar.tab.hpp"
-#line 462 "generatorGrammar.lexer.cpp"
-#line 463 "generatorGrammar.lexer.cpp"
+#include "generatorLexer.tab.hpp"
+#line 462 "generatorLexer.lexer.cpp"
+#line 463 "generatorLexer.lexer.cpp"
 
 #define INITIAL 0
 
@@ -676,9 +676,9 @@ YY_DECL
 		}
 
 	{
-#line 14 "generatorGrammar.l"
+#line 14 "generatorLexer.l"
 
-#line 682 "generatorGrammar.lexer.cpp"
+#line 682 "generatorLexer.lexer.cpp"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -738,12 +738,12 @@ do_action:	/* This label is used only to access EOF actions. */
 case 1:
 /* rule 1 can match eol */
 YY_RULE_SETUP
-#line 15 "generatorGrammar.l"
+#line 15 "generatorLexer.l"
 ;
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 17 "generatorGrammar.l"
+#line 17 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return LBR;
@@ -751,7 +751,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 21 "generatorGrammar.l"
+#line 21 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return RBR;
@@ -759,7 +759,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 25 "generatorGrammar.l"
+#line 25 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return PROCLB;
@@ -767,7 +767,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 29 "generatorGrammar.l"
+#line 29 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return PROCRB;
@@ -775,7 +775,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 33 "generatorGrammar.l"
+#line 33 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return PROCPROC;
@@ -783,7 +783,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 37 "generatorGrammar.l"
+#line 37 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return COMMA;
@@ -791,7 +791,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 41 "generatorGrammar.l"
+#line 41 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return TOKENS;
@@ -799,7 +799,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 45 "generatorGrammar.l"
+#line 45 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return SKIP;
@@ -807,7 +807,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 49 "generatorGrammar.l"
+#line 49 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return TEXT;
@@ -815,7 +815,7 @@ YY_RULE_SETUP
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 53 "generatorGrammar.l"
+#line 53 "generatorLexer.l"
 {
     yylval.str = new std::string(yytext);
     return NAME;
@@ -823,10 +823,10 @@ YY_RULE_SETUP
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 57 "generatorGrammar.l"
+#line 57 "generatorLexer.l"
 ECHO;
 	YY_BREAK
-#line 830 "generatorGrammar.lexer.cpp"
+#line 830 "generatorLexer.lexer.cpp"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -1831,5 +1831,6 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 57 "generatorGrammar.l"
+#line 57 "generatorLexer.l"
+
 

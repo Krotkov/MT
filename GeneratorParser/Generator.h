@@ -6,8 +6,8 @@
 #define MT_GENERATOR_H
 
 #include <bits/stdc++.h>
-#include "generatorGrammar.tab.hpp"
-#include "generatorGrammar.lexer.hpp"
+#include "generatorLexer.tab.hpp"
+#include "generatorLexer.lexer.hpp"
 
 extern std::string* result;
 extern std::vector< std::pair<std::string, std::string> > regToCode;
