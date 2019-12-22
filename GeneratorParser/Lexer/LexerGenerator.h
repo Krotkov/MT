@@ -6,8 +6,7 @@
 #define MT_GENERATOR_H
 
 #include <bits/stdc++.h>
-#include "generatorLexer.tab.hpp"
-#include "generatorLexer.lexer.hpp"
+#include "parseLexer/parseLexer.h"
 
 extern std::string* result;
 extern std::vector< std::pair<std::string, std::string> > regToCode;
@@ -15,7 +14,7 @@ extern std::vector<std::string> tokens;
 extern std::string header;
 extern std::unordered_set<std::string> skipp;
 
-class Generator {
+class LexerGenerator {
     static void generateLexer(const std::string& directory, const std::string& fileName);
     static std::string readFile(const std::string& name);
 public:

@@ -3,12 +3,12 @@
 //
 
 #include <bits/stdc++.h>
-#include "Generator.h"
+#include "Lexer/LexerGenerator.h"
 
 using namespace std;
 
 
 int main() {
-    Generator::generate("gen", "input");
+    LexerGenerator::generate("/home/kranya/MT/GeneratorParser/generated/testing", "input");
     return 0;
 }

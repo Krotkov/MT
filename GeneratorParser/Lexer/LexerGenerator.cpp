@@ -2,7 +2,7 @@
 // Created by kranya on 22.12.2019.
 //
 
-#include "Generator.h"
+#include "LexerGenerator.h"
 
 void yyerror(const char* error) {
     std::cerr << error;
@@ -12,7 +12,7 @@ int yywrap() {
     return 1;
 }
 
-void Generator::generateLexer(const std::string &directory, const std::string &fileName) {
+void LexerGenerator::generateLexer(const std::string &directory, const std::string &fileName) {
     std::string lex = readFile(directory + "/" + fileName + ".l");
     yy_scan_string(lex.data());
     yyparse();
@@ -101,16 +101,17 @@ void Generator::generateLexer(const std::string &directory, const std::string &f
     cppFile << "}\n";
 };
 
-void Generator::generate(const std::string &directory, const std::string &fileName) {
+void LexerGenerator::generate(const std::string &directory, const std::string &fileName) {
     generateLexer(directory, fileName);
 }
 
-std::string Generator::readFile(const std::string & file) {
+std::string LexerGenerator::readFile(const std::string & file) {
     std::string ans = "", str;
     std::ifstream f(file);
     while (getline(f, str)) {
         ans += str;
         ans += "\n";
     }
+    std::cout << "---\n" << ans << "\n";
     return ans;
 }
