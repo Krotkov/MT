@@ -19,7 +19,7 @@ int yywrap() {
 }
 
 int main() {
-    freopen("/home/kranya/MT/FunctionalParser/input.txt", "r", stdin);
+    freopen("/home/kranya/MT/FunctionalParser/input.l", "r", stdin);
     string str, str1;
     while (getline(cin, str1)) {
         str += str1;
