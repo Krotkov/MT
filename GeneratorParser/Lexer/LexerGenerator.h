@@ -15,7 +15,6 @@ extern std::string header;
 extern std::unordered_set<std::string> skipp;
 
 class LexerGenerator {
-    static void generateLexer(const std::string& directory, const std::string& fileName);
     static std::string readFile(const std::string& name);
 public:
     static void generate(const std::string& directory, const std::string& fileName);

@@ -5,10 +5,11 @@
 
 %option outfile = "generatorLexer.lexer.cpp" header-file = "generatorLexer.lexer.hpp"
 
-white [ \t\n]*
+white [ \t\n`]*
 digit [0-9]
 text  [^\n]+
 letter [A-Z]
+name {letter}*
 
 %%
 {white}      ;
@@ -48,5 +49,9 @@ letter [A-Z]
 {text}  {
     yylval.str = new std::string(yytext);
     return TEXT;
+}
+{name} {
+    yylval.str = new std::string(yytext);
+    return NAME;
 }
 %%

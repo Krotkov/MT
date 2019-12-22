@@ -466,7 +466,7 @@ extern int yylex (void);
 #undef yyTABLES_NAME
 #endif
 
-#line 57 "generatorLexer.l"
+#line 52 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.l"
 
 
 #line 473 "generatorLexer.lexer.hpp"

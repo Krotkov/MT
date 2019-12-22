@@ -12,7 +12,7 @@ int yywrap() {
     return 1;
 }
 
-void LexerGenerator::generateLexer(const std::string &directory, const std::string &fileName) {
+void LexerGenerator::generate(const std::string &directory, const std::string &fileName) {
     std::string lex = readFile(directory + "/" + fileName + ".l");
     yy_scan_string(lex.data());
     yyparse();
@@ -22,7 +22,7 @@ void LexerGenerator::generateLexer(const std::string &directory, const std::stri
           << "#include <bits/stdc++.h>\n";
     hFile << header << "\n";
     hFile << "enum Token {\n"
-          << "  ";
+          << "  BEGIN, ";
     std::reverse(tokens.begin(), tokens.end());
     for (auto token: tokens) {
         hFile << token << ", ";
@@ -56,11 +56,15 @@ void LexerGenerator::generateLexer(const std::string &directory, const std::stri
             << "#include \"" << className << ".h\"" << "\n\n"
             << className << "::" << className << "() {\n"
             << tab << "curPos = 0;\n"
+            << tab << "_curToken = BEGIN;\n"
             << tab << "skips = { ";
-    for (auto skip = ++skipp.begin(); skip != skipp.end(); skip++) {
-        cppFile << *skip << ", ";
+    if (!skipp.empty()) {
+        for (auto skip = ++skipp.begin(); skip != skipp.end(); skip++) {
+            cppFile << *skip << ", ";
+        }
+        cppFile << *skipp.begin();
     }
-    cppFile << *skipp.begin() << " };\n}\n\n";
+    cppFile << " };\n}\n\n";
 
     cppFile << "Token " << className << "::curToken() {\n"
             << tab << "return _curToken;\n"
@@ -99,10 +103,6 @@ void LexerGenerator::generateLexer(const std::string &directory, const std::stri
             << tab << "}\n";
     cppFile << tab << "throw new std::runtime_error(\"bad argument\");\n";
     cppFile << "}\n";
-};
-
-void LexerGenerator::generate(const std::string &directory, const std::string &fileName) {
-    generateLexer(directory, fileName);
 }
 
 std::string LexerGenerator::readFile(const std::string & file) {
@@ -112,6 +112,5 @@ std::string LexerGenerator::readFile(const std::string & file) {
         ans += str;
         ans += "\n";
     }
-    std::cout << "---\n" << ans << "\n";
     return ans;
 }

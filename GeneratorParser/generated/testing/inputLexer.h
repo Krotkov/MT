@@ -2,7 +2,7 @@
 #include <bits/stdc++.h>
 
 enum Token {
-  NAME, PLUS, WHITE, END
+  BEGIN, NAME, PLUS, WHITE, END
 };
 class inputLexer{
 public:

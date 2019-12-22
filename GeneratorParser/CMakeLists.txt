@@ -4,6 +4,7 @@ project (ParserGenerator)
 set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(Lexer)
+add_subdirectory(Parser)
 
 add_executable(generate main.cpp)
 

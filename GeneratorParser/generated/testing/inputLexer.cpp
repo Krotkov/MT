@@ -3,7 +3,8 @@
 
 inputLexer::inputLexer() {
     curPos = 0;
-    skips = { WHITE };
+    _curToken = BEGIN;
+    skips = {  };
 }
 
 Token inputLexer::curToken() {

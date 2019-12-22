@@ -5,7 +5,6 @@ NAME
 PLUS
 WHITE
 %skip
-WHITE
 %%
 [ \t\n]+
 {
