@@ -3,6 +3,8 @@
 %tokens
 WHITE
 NUM
+MINUS
+DIV
 PLUS
 MUL
 LBR
@@ -20,6 +22,14 @@ return NUM;
 \+
 {
 return PLUS;
+}
+\-
+{
+return MINUS;
+}
+\\
+{
+return DIV;
 }
 \*
 {

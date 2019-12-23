@@ -9,7 +9,17 @@ Tree inputParser::parse() {
     return E();
 }
 Tree inputParser::E() {
-    if (lexer.curToken() == LBR) {
+    if (lexer.curToken() == MINUS) {
+        auto val1 = lexer.tokenString();
+        lexer.nextToken();
+        auto val2 = E();
+       std::vector<Tree> children;
+children.emplace_back(val1);
+children.emplace_back(val2);
+auto retVal = Tree("E", children);
+
+       return retVal;
+    } else if (lexer.curToken() == LBR) {
         auto val1 = T();
         auto val2 = E2();
        std::vector<Tree> children;
@@ -39,6 +49,18 @@ Tree inputParser::E2() {
         auto val3 = E2();
        std::vector<Tree> children;
 children.emplace_back("+");
+children.emplace_back(val2);
+children.emplace_back(val3);
+auto retVal = Tree("E2", children);
+
+       return retVal;
+    } else if (lexer.curToken() == MINUS) {
+        auto val1 = lexer.tokenString();
+        lexer.nextToken();
+        auto val2 = T();
+        auto val3 = E2();
+       std::vector<Tree> children;
+children.emplace_back(val1);
 children.emplace_back(val2);
 children.emplace_back(val3);
 auto retVal = Tree("E2", children);
@@ -114,7 +136,19 @@ children.emplace_back(val3);
 auto retVal = Tree("T2", children);
 
        return retVal;
-    } else if (lexer.curToken() == RBR || lexer.curToken() == END || lexer.curToken() == PLUS || false) {
+    } else if (lexer.curToken() == DIV) {
+        auto val1 = lexer.tokenString();
+        lexer.nextToken();
+        auto val2 = F();
+        auto val3 = T2();
+       std::vector<Tree> children;
+children.emplace_back(val1);
+children.emplace_back(val2);
+children.emplace_back(val3);
+auto retVal = Tree("T2", children);
+
+       return retVal;
+    } else if (lexer.curToken() == RBR || lexer.curToken() == MINUS || lexer.curToken() == END || lexer.curToken() == PLUS || false) {
        auto retVal = Tree("T2");
 
        return retVal;

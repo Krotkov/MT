@@ -45,6 +45,16 @@ Token inputLexer::findNextToken() {
         _tokenString = m.str();
         return PLUS;
     }
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\-)"))) {
+        curPos += m.str().size();
+        _tokenString = m.str();
+        return MINUS;
+    }
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\\)"))) {
+        curPos += m.str().size();
+        _tokenString = m.str();
+        return DIV;
+    }
     if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\*)"))) {
         curPos += m.str().size();
         _tokenString = m.str();

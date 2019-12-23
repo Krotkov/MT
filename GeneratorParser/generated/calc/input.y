@@ -1,6 +1,6 @@
 %{
 #include <bits/stdc++.h>
-#include "Tree.h"
+#include "../Tree.h"
 %}
 
 %start`E
@@ -15,11 +15,24 @@ children.emplace_back($1);
 children.emplace_back($2);
 $$ = Tree("E", children);
 }
+|`MINUS`E`{
+std::vector<Tree> children;
+children.emplace_back($1);
+children.emplace_back($2);
+$$ = Tree("E", children);
+}
 ;
 E2`:
 |`PLUS`T`E2`{
 std::vector<Tree> children;
 children.emplace_back("+");
+children.emplace_back($2);
+children.emplace_back($3);
+$$ = Tree("E2", children);
+}
+|`MINUS`T`E2`{
+std::vector<Tree> children;
+children.emplace_back($1);
 children.emplace_back($2);
 children.emplace_back($3);
 $$ = Tree("E2", children);
@@ -40,6 +53,13 @@ T2`:
 |`MUL`F`T2`{
 std::vector<Tree> children;
 children.emplace_back("*");
+children.emplace_back($2);
+children.emplace_back($3);
+$$ = Tree("T2", children);
+}
+|`DIV`F`T2`{
+std::vector<Tree> children;
+children.emplace_back($1);
 children.emplace_back($2);
 children.emplace_back($3);
 $$ = Tree("T2", children);
