@@ -35,7 +35,7 @@ Token inputLexer::findNextToken() {
         _tokenString = m.str();
         return WHITE;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[1-9][0-9]+)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[0-9]+)"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return NUM;
@@ -50,12 +50,12 @@ Token inputLexer::findNextToken() {
         _tokenString = m.str();
         return MUL;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^()"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\()"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return LBR;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^))"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return RBR;

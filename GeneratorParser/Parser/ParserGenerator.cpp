@@ -150,13 +150,15 @@ ParserGenerator::findRule(const std::string &neTerm, const std::string &term,
 }
 
 void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string>& rule) {
-    int ind = 0;
+    int ind = 1;
     for (const auto& tt: rule.first) {
         if (neTerms.find(tt) != neTerms.end()) {
             file << "        auto val" << ind << " = " << tt << "();\n";
         } else {
-            file << "        lexer.nextToken();\n"
-                 << "        auto val" << ind << " = lexer.tokenString();\n";
+            if (tt != "EPS") {
+                file << "        auto val" << ind << " = lexer.tokenString();\n"
+                     << "        lexer.nextToken();\n";
+            }
         }
         ind++;
     }
@@ -164,14 +166,14 @@ void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::
     auto newCode = processCode(rule.second);
 
     file << "       " << newCode.first << "\n";
-    if (~newCode.second) {
-        file << "        int retVal = 0;\n";
+    if (!newCode.second) {
+        file << "        " << commonType << " retVal;\n";
     }
     file << "       return retVal;\n";
 }
 
 std::pair<std::string, bool> ParserGenerator::processCode(std::string code) {
-    for (size_t i = 0; i < 100; i++) {
+    for (size_t i = 1; i < 100; i++) {
         std::string oldVal = "$" + std::to_string(i);
         std::string newVal = "val" + std::to_string(i);
         while (code.find(oldVal) != std::string::npos) {
@@ -179,7 +181,7 @@ std::pair<std::string, bool> ParserGenerator::processCode(std::string code) {
         }
     }
     if (code.find("$$") != std::string::npos) {
-        code.replace(code.find("$$"), 2, "retVal");
+        code.replace(code.find("$$"), 2, "auto retVal");
         return {code, true};
     } else {
         return {code, false};
@@ -202,7 +204,7 @@ void ParserGenerator::generateHppFile(const std::string &name, const std::string
     file << "public:\n"
          << "    " << name << "Parser() = default;\n"
          << "    void updateInput(std::string& input);\n"
-         << "    void parse();\n"
+         << "    " << commonType << " parse();\n"
          << "};\n";
 
 }
@@ -218,9 +220,9 @@ void ParserGenerator::generateCppFile(const std::string &name, const std::string
          << "    lexer.updateInput(input);\n"
          << "}\n";
 
-    file << "void " << className << "::parse() {\n"
+    file << commonType << " " << className << "::parse() {\n"
          << "    lexer.nextToken();\n"
-         << "    " << startPoint << "();\n"
+         << "    return " << startPoint << "();\n"
          << "}\n";
 
     for (const auto &neTerm: neTerms) {

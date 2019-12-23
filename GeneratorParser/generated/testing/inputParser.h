@@ -2,16 +2,17 @@
 #include <bits/stdc++.h>
 #include "inputLexer.h"
 #include <bits/stdc++.h>
+#include "../Tree.h"
 
 class inputParser {
     inputLexer lexer;
-    int E();
-    int E2();
-    int F();
-    int T();
-    int T2();
+    Tree E();
+    Tree E2();
+    Tree F();
+    Tree T();
+    Tree T2();
 public:
     inputParser() = default;
     void updateInput(std::string& input);
-    void parse();
+    Tree parse();
 };
