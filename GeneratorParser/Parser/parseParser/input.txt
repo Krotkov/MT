@@ -1,0 +1,16 @@
+%{
+asdasdvasd
+asdv   asv
+%}
+
+%start`abadaba
+
+%%
+aba`:
+|`a`b`c`d`{
+asdasd
+}
+|`d`f`d`f`{
+}
+;
+%%

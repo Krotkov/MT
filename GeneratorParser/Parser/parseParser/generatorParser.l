@@ -1,57 +1,68 @@
 %{
 #include <bits/stdc++.h>
-#include "generatorLexer.tab.hpp"
+#include "generatorParser.tab.hpp"
 %}
 
-%option outfile = "generatorLexer.lexer.cpp" header-file = "generatorLexer.lexer.hpp"
+%option prefix="parser_"
+
+%option outfile = "generatorParser.lexer.cpp" header-file = "generatorParser.lexer.hpp"
 
 white [ \t\n`]*
 digit [0-9]
-text  [^\n]+
+text  [^\n`]+
 letter [A-Z]
-name {letter}*
 
 %%
 {white}      ;
 
 "{"  {
-    yylval.str = new std::string(yytext);
+    parser_lval.str = new std::string(parser_text);
     return LBR;
 }
 "}" {
-    yylval.str = new std::string(yytext);
+    parser_lval.str = new std::string(parser_text);
     return RBR;
 }
 "%{"    {
-    yylval.str = new std::string(yytext);
+    parser_lval.str = new std::string(parser_text);
     return PROCLB;
 }
 "%}"    {
-    yylval.str = new std::string(yytext);
+    parser_lval.str = new std::string(parser_text);
     return PROCRB;
 }
 "%%"    {
-    yylval.str = new std::string(yytext);
+    parser_lval.str = new std::string(parser_text);
     return PROCPROC;
 }
 "," {
-    yylval.str = new std::string(yytext);
+    parser_lval.str = new std::string(parser_text);
     return COMMA;
 }
-"%tokens" {
-    yylval.str = new std::string(yytext);
-    return TOKENS;
+"%type" {
+    parser_lval.str = new std::string(parser_text);
+    return TYPE;
 }
-"%skip" {
-    yylval.str = new std::string(yytext);
-    return SKIP;
+"%token" {
+    parser_lval.str = new std::string(parser_text);
+    return TOKEN;
+}
+"%start" {
+    parser_lval.str = new std::string(parser_text);
+    return START;
+}
+":" {
+    parser_lval.str = new std::string(parser_text);
+    return COLON;
+}
+";" {
+    return SEMICOLON;
+}
+"|" {
+    return CAR;
 }
 {text}  {
-    yylval.str = new std::string(yytext);
+    parser_lval.str = new std::string(parser_text);
     return TEXT;
-}
-{name} {
-    yylval.str = new std::string(yytext);
-    return NAME;
 }
 %%

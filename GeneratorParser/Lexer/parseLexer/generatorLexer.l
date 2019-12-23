@@ -37,6 +37,7 @@ letter [A-Z]
     yylval.str = new std::string(yytext);
     return COMMA;
 }
+"|" { return CAR; }
 "%tokens" {
     yylval.str = new std::string(yytext);
     return TOKENS;

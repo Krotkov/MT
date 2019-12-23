@@ -10,7 +10,7 @@ WHITE
 {
 return WHITE;
 }
-[abc]+
+[a-zA-Z]+
 {
 return NAME;
 }

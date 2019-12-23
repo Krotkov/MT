@@ -35,7 +35,7 @@ Token inputLexer::findNextToken() {
         _tokenString = m.str();
         return WHITE;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[abc]+)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[a-z]+)"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return NAME;

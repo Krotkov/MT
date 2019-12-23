@@ -9,6 +9,7 @@ int main() {
     std::string str;
     getline(std::cin, str);
     inputLexer lexer;
+    lexer.updateInput(str);
     lexer.nextToken();
     std::vector<Token> vect;
     while (lexer.curToken() != END) {
