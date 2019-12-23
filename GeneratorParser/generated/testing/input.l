@@ -1,21 +1,36 @@
 %{
 %}
 %tokens
-NAME
-PLUS
 WHITE
+NUM
+PLUS
+MUL
+LBR
+RBR
 %skip
 %%
 [ \t\n]+
 {
 return WHITE;
 }
-[a-zA-Z]+
+[1-9][0-9]+
 {
-return NAME;
+return NUM;
 }
 \+
 {
 return PLUS;
+}
+\*
+{
+return MUL;
+}
+(
+{
+return LBR;
+}
+)
+{
+return RBR;
 }
 %%

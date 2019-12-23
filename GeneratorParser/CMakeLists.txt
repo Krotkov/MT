@@ -5,9 +5,9 @@ set(CMAKE_CXX_STANDARD 14)
 
 add_subdirectory(Lexer)
 add_subdirectory(Parser)
+add_subdirectory(generated)
 
 add_executable(generate main.cpp)
 
-target_link_libraries(generate generateLexer)
+target_link_libraries(generate generateLexer generateParser)
 
-add_executable (test generated/testing/main.cpp generated/testing/inputLexer.cpp)

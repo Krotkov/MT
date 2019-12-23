@@ -10,5 +10,5 @@ BISON_TARGET(MyParser generatorParser.y ${PROJECT_SOURCE_DIR}/generatorParser.ta
 FLEX_TARGET(MyScanner generatorParser.l ${PROJECT_SOURCE_DIR}/generatorParser.lexer.cpp)
 ADD_FLEX_BISON_DEPENDENCY(MyScanner MyParser)
 
-add_executable(testing main.cpp ${BISON_MyParser_OUTPUTS}
+add_library(parseParser parseParser.h ${BISON_MyParser_OUTPUTS}
         ${FLEX_MyScanner_OUTPUTS})

@@ -5,7 +5,7 @@
 	void yyerror(const char*);
 
 	std::string* result = nullptr;
-	std::string header;
+	std::string headerLexer;
 	std::vector< std::pair<std::string, std::string> > regToCode;
 	std::vector<std::string> tokens;
 	std::unordered_set<std::string> skipp;
@@ -24,7 +24,7 @@
 %%
     INPUT:
 	PROCLB MYTEXT PROCRB TOKENS MYTOKENS SKIP SKIPTOKENS PROCPROC RULES PROCPROC {
-	    header = *$2;
+	    headerLexer = *$2;
 	    result = new std::string(*$1 + "\n" + *$2 + *$3 + "\n%tokens " + *$5 + "\n%skip " + *$7 + "\n%%\n" + *$9 + "\n%%\n");
 	}
     SKIPTOKENS:

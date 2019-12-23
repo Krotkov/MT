@@ -4,10 +4,11 @@
     void parser_error(const char*);
 
 
-    std::string* result;
     std::string header;
     std::string startPoint;
+    std::string commonType;
     std::unordered_map<std::string, std::vector<std::pair<std::vector<std::string>, std::string> > > neTermRules;
+    std::set<std::string> neTerms;
 %}
 
 %name-prefix "parser_"
@@ -30,10 +31,10 @@
 %%
 
     INPUT:
-        PROCLB MYTEXT PROCRB START TEXT PROCPROC RULES PROCPROC {
+        PROCLB MYTEXT PROCRB START TEXT TYPE TEXT PROCPROC RULES PROCPROC {
             header = *$2;
             startPoint = *$5;
-            result = new std::string("%{\n" + *$2 + "%}\n" + "%start " + *$5 + "\n%%\n" + *$7 + "%%\n");
+            commonType = *$7;
         }
     MYTEXT:
     	MYTEXT TEXT {
@@ -53,6 +54,7 @@
 
     RULE:
     	TEXT COLON PATTERNS SEMICOLON {
+    	    neTerms.insert(*$1);
     	    neTermRules[*$1] = *$3;
     	    $$ = new std::string( *$1 + ":\n" + ";\n");
     	}

@@ -20,7 +20,7 @@ void LexerGenerator::generate(const std::string &directory, const std::string &f
     std::ofstream hFile(directory + "/" + (name + ".h"));
     hFile << "#pragma once\n"
           << "#include <bits/stdc++.h>\n";
-    hFile << header << "\n";
+    hFile << headerLexer << "\n";
     hFile << "enum Token {\n"
           << "  BEGIN, ";
     std::reverse(tokens.begin(), tokens.end());
@@ -101,7 +101,7 @@ void LexerGenerator::generate(const std::string &directory, const std::string &f
             << tab << tab << "_tokenString = m.str();\n"
             << tab << tab << "return END;\n"
             << tab << "}\n";
-    cppFile << tab << "throw new std::runtime_error(\"bad argument\");\n";
+    cppFile << tab << "throw std::runtime_error(\"bad argument\");\n";
     cppFile << "}\n";
 }
 

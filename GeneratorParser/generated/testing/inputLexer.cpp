@@ -35,20 +35,35 @@ Token inputLexer::findNextToken() {
         _tokenString = m.str();
         return WHITE;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[a-z]+)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[1-9][0-9]+)"))) {
         curPos += m.str().size();
         _tokenString = m.str();
-        return NAME;
+        return NUM;
     }
     if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\+)"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return PLUS;
     }
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\*)"))) {
+        curPos += m.str().size();
+        _tokenString = m.str();
+        return MUL;
+    }
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^()"))) {
+        curPos += m.str().size();
+        _tokenString = m.str();
+        return LBR;
+    }
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^))"))) {
+        curPos += m.str().size();
+        _tokenString = m.str();
+        return RBR;
+    }
     if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex("$"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return END;
     }
-    throw new std::runtime_error("bad argument");
+    throw std::runtime_error("bad argument");
 }

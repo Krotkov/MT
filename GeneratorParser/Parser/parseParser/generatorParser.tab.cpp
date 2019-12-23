@@ -63,23 +63,30 @@
 #define YYPULL 1
 
 
-
+/* Substitute the variable and function names.  */
+#define yyparse         parser_parse
+#define yylex           parser_lex
+#define yyerror         parser_error
+#define yydebug         parser_debug
+#define yynerrs         parser_nerrs
+#define yylval          parser_lval
+#define yychar          parser_char
 
 /* First part of user prologue.  */
-#line 1 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
+#line 1 "generatorParser.y"
 
-	#include <bits/stdc++.h>
-	#include <regex>
-	int yylex(void);
-	void yyerror(const char*);
+    #include <bits/stdc++.h>
+    int parser_lex(void);
+    void parser_error(const char*);
 
-	std::string* result = nullptr;
-	std::string headerLexer;
-	std::vector< std::pair<std::string, std::string> > regToCode;
-	std::vector<std::string> tokens;
-	std::unordered_set<std::string> skipp;
 
-#line 83 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+    std::string header;
+    std::string startPoint;
+    std::string commonType;
+    std::unordered_map<std::string, std::vector<std::pair<std::vector<std::string>, std::string> > > neTermRules;
+    std::set<std::string> neTerms;
+
+#line 90 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
 
 # ifndef YY_CAST
 #  ifdef __cplusplus
@@ -112,14 +119,14 @@
 
 /* Use api.header.include to #include this header
    instead of duplicating it here.  */
-#ifndef YY_YY_HOME_KRANYA_MT_GENERATORPARSER_LEXER_PARSELEXER_GENERATORLEXER_TAB_HPP_INCLUDED
-# define YY_YY_HOME_KRANYA_MT_GENERATORPARSER_LEXER_PARSELEXER_GENERATORLEXER_TAB_HPP_INCLUDED
+#ifndef YY_PARSER_HOME_KRANYA_MT_GENERATORPARSER_PARSER_PARSEPARSER_GENERATORPARSER_TAB_HPP_INCLUDED
+# define YY_PARSER_HOME_KRANYA_MT_GENERATORPARSER_PARSER_PARSEPARSER_GENERATORPARSER_TAB_HPP_INCLUDED
 /* Debug traces.  */
 #ifndef YYDEBUG
 # define YYDEBUG 0
 #endif
 #if YYDEBUG
-extern int yydebug;
+extern int parser_debug;
 #endif
 
 /* Token type.  */
@@ -134,9 +141,13 @@ extern int yydebug;
     PROCPROC = 262,
     LBR = 263,
     RBR = 264,
-    TOKENS = 265,
-    COMMA = 266,
-    SKIP = 267
+    TYPE = 265,
+    TOKEN = 266,
+    START = 267,
+    CAR = 268,
+    COMMA = 269,
+    COLON = 270,
+    SEMICOLON = 271
   };
 #endif
 
@@ -144,11 +155,14 @@ extern int yydebug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 14 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
+#line 17 "generatorParser.y"
 
     std::string* str;
+    std::vector<std::string>* vect;
+    std::pair<std::vector<std::string>, std::string>* pir;
+    std::vector<std::pair<std::vector<std::string>, std::string> >* vectpir;
 
-#line 152 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+#line 166 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
 
 };
 typedef union YYSTYPE YYSTYPE;
@@ -157,11 +171,11 @@ typedef union YYSTYPE YYSTYPE;
 #endif
 
 
-extern YYSTYPE yylval;
+extern YYSTYPE parser_lval;
 
-int yyparse (void);
+int parser_parse (void);
 
-#endif /* !YY_YY_HOME_KRANYA_MT_GENERATORPARSER_LEXER_PARSELEXER_GENERATORLEXER_TAB_HPP_INCLUDED  */
+#endif /* !YY_PARSER_HOME_KRANYA_MT_GENERATORPARSER_PARSER_PARSEPARSER_GENERATORPARSER_TAB_HPP_INCLUDED  */
 
 
 
@@ -467,19 +481,19 @@ union yyalloc
 /* YYFINAL -- State number of the termination state.  */
 #define YYFINAL  4
 /* YYLAST -- Last index in YYTABLE.  */
-#define YYLAST   21
+#define YYLAST   18
 
 /* YYNTOKENS -- Number of terminals.  */
-#define YYNTOKENS  13
+#define YYNTOKENS  17
 /* YYNNTS -- Number of nonterminals.  */
-#define YYNNTS  7
+#define YYNNTS  8
 /* YYNRULES -- Number of rules.  */
-#define YYNRULES  11
+#define YYNRULES  12
 /* YYNSTATES -- Number of states.  */
-#define YYNSTATES  23
+#define YYNSTATES  26
 
 #define YYUNDEFTOK  2
-#define YYMAXUTOK   267
+#define YYMAXUTOK   271
 
 
 /* YYTRANSLATE(TOKEN-NUM) -- Symbol number corresponding to TOKEN-NUM
@@ -517,15 +531,16 @@ static const yytype_int8 yytranslate[] =
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     2,     2,     2,     2,
        2,     2,     2,     2,     2,     2,     1,     2,     3,     4,
-       5,     6,     7,     8,     9,    10,    11,    12
+       5,     6,     7,     8,     9,    10,    11,    12,    13,    14,
+      15,    16
 };
 
 #if YYDEBUG
   /* YYRLINE[YYN] -- Source line where rule number YYN was defined.  */
 static const yytype_int8 yyrline[] =
 {
-       0,    26,    26,    31,    35,    39,    43,    47,    50,    54,
-      59,    62
+       0,    34,    34,    40,    43,    48,    51,    56,    63,    67,
+      73,    77,    81
 };
 #endif
 
@@ -535,8 +550,9 @@ static const yytype_int8 yyrline[] =
 static const char *const yytname[] =
 {
   "$end", "error", "$undefined", "TEXT", "WHITE", "PROCLB", "PROCRB",
-  "PROCPROC", "LBR", "RBR", "TOKENS", "COMMA", "SKIP", "$accept", "INPUT",
-  "SKIPTOKENS", "MYTOKENS", "RULES", "RULE", "MYTEXT", YY_NULLPTR
+  "PROCPROC", "LBR", "RBR", "TYPE", "TOKEN", "START", "CAR", "COMMA",
+  "COLON", "SEMICOLON", "$accept", "INPUT", "MYTEXT", "RULES", "RULE",
+  "PATTERNS", "PATTERN", "TOKENS", YY_NULLPTR
 };
 #endif
 
@@ -546,11 +562,11 @@ static const char *const yytname[] =
 static const yytype_int16 yytoknum[] =
 {
        0,   256,   257,   258,   259,   260,   261,   262,   263,   264,
-     265,   266,   267
+     265,   266,   267,   268,   269,   270,   271
 };
 # endif
 
-#define YYPACT_NINF (-8)
+#define YYPACT_NINF (-9)
 
 #define yypact_value_is_default(Yyn) \
   ((Yyn) == YYPACT_NINF)
@@ -564,9 +580,9 @@ static const yytype_int16 yytoknum[] =
      STATE-NUM.  */
 static const yytype_int8 yypact[] =
 {
-       3,    -8,     2,     1,    -8,    -8,    -7,     6,     6,    -1,
-      -8,     7,     7,     5,    -8,    -8,    -2,     8,    -8,    -8,
-      -8,    -3,    -8
+       8,    -9,     3,     5,    -9,    -9,    -8,     7,     4,    12,
+       9,    -9,    -2,     2,    -9,    -9,    -9,    -4,    -9,    -9,
+      -9,    -1,    -9,    -9,    -3,    -9
 };
 
   /* YYDEFACT[STATE-NUM] -- Default reduction number in state STATE-NUM.
@@ -574,21 +590,21 @@ static const yytype_int8 yypact[] =
      means the default is an error.  */
 static const yytype_int8 yydefact[] =
 {
-       0,    11,     0,     0,     1,    10,     0,     6,     6,     0,
-       5,     4,     4,     0,     3,     8,     0,     0,     2,     7,
-      11,     0,     9
+       0,     4,     0,     0,     1,     3,     0,     0,     0,     0,
+       0,     6,     0,     0,     2,     5,     9,     0,    12,     7,
+       8,     0,    11,     4,     0,    10
 };
 
   /* YYPGOTO[NTERM-NUM].  */
 static const yytype_int8 yypgoto[] =
 {
-      -8,    -8,     9,    10,    -8,    -8,    -6
+      -9,    -9,    -5,    -9,    -9,    -9,    -9,    -9
 };
 
   /* YYDEFGOTO[NTERM-NUM].  */
 static const yytype_int8 yydefgoto[] =
 {
-      -1,     2,    13,     9,    16,    19,     3
+      -1,     2,     3,    12,    15,    17,    20,    21
 };
 
   /* YYTABLE[YYPACT[STATE-NUM]] -- What to do in state STATE-NUM.  If
@@ -596,39 +612,37 @@ static const yytype_int8 yydefgoto[] =
      number is the opposite.  If YYTABLE_NINF, syntax error.  */
 static const yytype_int8 yytable[] =
 {
-       5,    17,     4,     7,     5,    18,    22,     6,     1,     8,
-      12,    11,    15,     0,    21,     0,    20,     0,    10,     0,
-       0,    14
+       5,    13,    22,     4,     7,    14,    25,    23,     5,    18,
+       8,     6,    19,     1,     9,    10,    11,    16,    24
 };
 
 static const yytype_int8 yycheck[] =
 {
-       3,     3,     0,    10,     3,     7,     9,     6,     5,     3,
-       3,    12,     7,    -1,    20,    -1,     8,    -1,     8,    -1,
-      -1,    12
+       3,     3,     3,     0,    12,     7,     9,     8,     3,    13,
+       3,     6,    16,     5,    10,     3,     7,    15,    23
 };
 
   /* YYSTOS[STATE-NUM] -- The (internal number of the) accessing
      symbol of state STATE-NUM.  */
 static const yytype_int8 yystos[] =
 {
-       0,     5,    14,    19,     0,     3,     6,    10,     3,    16,
-      16,    12,     3,    15,    15,     7,    17,     3,     7,    18,
-       8,    19,     9
+       0,     5,    18,    19,     0,     3,     6,    12,     3,    10,
+       3,     7,    20,     3,     7,    21,    15,    22,    13,    16,
+      23,    24,     3,     8,    19,     9
 };
 
   /* YYR1[YYN] -- Symbol number of symbol that rule YYN derives.  */
 static const yytype_int8 yyr1[] =
 {
-       0,    13,    14,    15,    15,    16,    16,    17,    17,    18,
-      19,    19
+       0,    17,    18,    19,    19,    20,    20,    21,    22,    22,
+      23,    24,    24
 };
 
   /* YYR2[YYN] -- Number of symbols on the right hand side of rule YYN.  */
 static const yytype_int8 yyr2[] =
 {
-       0,     2,    10,     2,     0,     2,     0,     2,     0,     4,
-       2,     0
+       0,     2,    10,     2,     0,     2,     0,     4,     2,     0,
+       5,     2,     0
 };
 
 
@@ -1324,91 +1338,102 @@ yyreduce:
   switch (yyn)
     {
   case 2:
-#line 26 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
-                                                                                     {
-	    headerLexer = *(yyvsp[-8].str);
-	    result = new std::string(*(yyvsp[-9].str) + "\n" + *(yyvsp[-8].str) + *(yyvsp[-7].str) + "\n%tokens " + *(yyvsp[-5].str) + "\n%skip " + *(yyvsp[-3].str) + "\n%%\n" + *(yyvsp[-1].str) + "\n%%\n");
-	}
-#line 1333 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+#line 34 "generatorParser.y"
+                                                                          {
+            header = *(yyvsp[-8].str);
+            startPoint = *(yyvsp[-5].str);
+            commonType = *(yyvsp[-3].str);
+        }
+#line 1348 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
     break;
 
   case 3:
-#line 31 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
-                        {
-            skipp.insert(*(yyvsp[-1].str));
-            (yyval.str) = new std::string(*(yyvsp[-1].str) + " " + *(yyvsp[0].str));
-        }
-#line 1342 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+#line 40 "generatorParser.y"
+                    {
+    	    (yyval.str) = new std::string(*(yyvsp[-1].str) + *(yyvsp[0].str) + "\n");
+    	}
+#line 1356 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
     break;
 
   case 4:
-#line 35 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
+#line 43 "generatorParser.y"
           {
-            (yyval.str) = new std::string("");
-        }
-#line 1350 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+    	    (yyval.str) = new std::string("");
+    	}
+#line 1364 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
     break;
 
   case 5:
-#line 39 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
-                      {
-    	    tokens.emplace_back(*(yyvsp[-1].str));
-    	    (yyval.str) = new std::string(*(yyvsp[-1].str) + " " + *(yyvsp[0].str));
-    	}
-#line 1359 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
-    break;
-
-  case 6:
-#line 43 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
-          {
-    	    (yyval.str) = new std::string("");
-    	}
-#line 1367 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
-    break;
-
-  case 7:
-#line 47 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
-                   {
-            (yyval.str) = new std::string(*(yyvsp[-1].str) + *(yyvsp[0].str));
-        }
-#line 1375 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
-    break;
-
-  case 8:
-#line 50 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
-          {
-            (yyval.str) = new std::string("");
-        }
-#line 1383 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
-    break;
-
-  case 9:
-#line 54 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
-                            {
-	    regToCode.emplace_back(*(yyvsp[-3].str), *(yyvsp[-1].str));
-	    (yyval.str) = new std::string(*(yyvsp[-3].str) + "\n{\n" + *(yyvsp[-1].str) + "}\n");
-	}
-#line 1392 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
-    break;
-
-  case 10:
-#line 59 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
+#line 48 "generatorParser.y"
                    {
     	    (yyval.str) = new std::string(*(yyvsp[-1].str) + *(yyvsp[0].str) + "\n");
     	}
-#line 1400 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+#line 1372 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
     break;
 
-  case 11:
-#line 62 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
+  case 6:
+#line 51 "generatorParser.y"
           {
     	    (yyval.str) = new std::string("");
     	}
-#line 1408 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+#line 1380 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
+    break;
+
+  case 7:
+#line 56 "generatorParser.y"
+                                      {
+    	    neTerms.insert(*(yyvsp[-3].str));
+    	    neTermRules[*(yyvsp[-3].str)] = *(yyvsp[-1].vectpir);
+    	    (yyval.str) = new std::string( *(yyvsp[-3].str) + ":\n" + ";\n");
+    	}
+#line 1390 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
+    break;
+
+  case 8:
+#line 63 "generatorParser.y"
+                         {
+    	    (yyvsp[-1].vectpir)->emplace_back(*(yyvsp[0].pir));
+    	    (yyval.vectpir) = (yyvsp[-1].vectpir);
+    	}
+#line 1399 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
+    break;
+
+  case 9:
+#line 67 "generatorParser.y"
+          {
+    	    auto ret = new std::vector<std::pair<std::vector<std::string>, std::string> >();
+    	    (yyval.vectpir) = ret;
+    	}
+#line 1408 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
+    break;
+
+  case 10:
+#line 73 "generatorParser.y"
+                                  {
+    	    (yyval.pir) = new std::pair<std::vector<std::string>, std::string>(*(yyvsp[-3].vect), *(yyvsp[-1].str));
+    	}
+#line 1416 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
+    break;
+
+  case 11:
+#line 77 "generatorParser.y"
+                    {
+    	    (yyvsp[-1].vect)->push_back(*(yyvsp[0].str));
+    	    (yyval.vect) = (yyvsp[-1].vect);
+    	}
+#line 1425 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
+    break;
+
+  case 12:
+#line 81 "generatorParser.y"
+          {
+    	    (yyval.vect) = new std::vector<std::string>();
+    	}
+#line 1433 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
     break;
 
 
-#line 1412 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.tab.cpp"
+#line 1437 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.cpp"
 
       default: break;
     }
@@ -1640,4 +1665,4 @@ yyreturn:
 #endif
   return yyresult;
 }
-#line 65 "/home/kranya/MT/GeneratorParser/Lexer/parseLexer/generatorLexer.y"
+#line 85 "generatorParser.y"

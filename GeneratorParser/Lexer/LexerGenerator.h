@@ -11,7 +11,7 @@
 extern std::string* result;
 extern std::vector< std::pair<std::string, std::string> > regToCode;
 extern std::vector<std::string> tokens;
-extern std::string header;
+extern std::string headerLexer;
 extern std::unordered_set<std::string> skipp;
 
 class LexerGenerator {

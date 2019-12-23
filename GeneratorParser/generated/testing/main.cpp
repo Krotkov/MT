@@ -3,7 +3,7 @@
 //
 
 #include <bits/stdc++.h>
-#include "inputLexer.h"
+#include "inputParser.h"
 
 int main() {
     std::string str;
