@@ -2,11 +2,11 @@
 #include <bits/stdc++.h>
 
 enum Token {
-  BEGIN, WHITE, NUM, MINUS, DIV, PLUS, MUL, LBR, RBR, END
+  BEGIN, WHITE, FUNCTION, PROCEDURE, NAME, LBR, RBR, COMMA, COLON, SEMICOLON, TYPE, END
 };
-class inputLexer{
+class pascalLexer{
 public:
-    inputLexer();
+    pascalLexer();
     void updateInput(const std::string& input);
     void nextToken();
     Token curToken();

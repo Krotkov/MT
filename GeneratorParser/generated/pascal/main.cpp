@@ -3,13 +3,20 @@
 //
 
 #include <bits/stdc++.h>
-#include "calcParser.h"
+#include "pascalParser.h"
 #include "../Tree.h"
 
 int main() {
-    calcParser parser;
+    pascalParser parser;
     std::string str;
     getline(std::cin, str);
+    pascalLexer lexer;
+    lexer.updateInput(str);
+    std::vector<Token> vect;
+    while (lexer.curToken() != END) {
+        vect.push_back(lexer.curToken());
+        lexer.nextToken();
+    }
     parser.updateInput(str);
     Tree tree = parser.parse();
     std::set<int> se;

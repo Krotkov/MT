@@ -1,26 +1,26 @@
 #include <bits/stdc++.h>
-#include "inputLexer.h"
+#include "calcLexer.h"
 
-inputLexer::inputLexer() {
+calcLexer::calcLexer() {
     curPos = 0;
     _curToken = BEGIN;
-    skips = {  };
+    skips = { WHITE };
 }
 
-Token inputLexer::curToken() {
+Token calcLexer::curToken() {
     return _curToken;
 }
 
-void inputLexer::updateInput(const std::string& newInput) {
+void calcLexer::updateInput(const std::string& newInput) {
     input = newInput;
     curPos = 0;
 }
 
-std::string inputLexer::tokenString() {
+std::string calcLexer::tokenString() {
     return _tokenString;
 }
 
-void inputLexer::nextToken() {
+void calcLexer::nextToken() {
     Token t = findNextToken();
     while (skips.find(t) != skips.end()) {
         t = findNextToken();
@@ -28,44 +28,44 @@ void inputLexer::nextToken() {
     _curToken = t;
 }
 
-Token inputLexer::findNextToken() {
+Token calcLexer::findNextToken() {
     std::smatch m;
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[ \t\n]+)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^([ \t\n]+))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return WHITE;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^[0-9]+)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^([0-9]+))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return NUM;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\+)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\+))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return PLUS;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\-)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\-))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return MINUS;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\\)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\\))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return DIV;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\*)"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\*))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return MUL;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\()"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\())"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return LBR;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^\))"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\)))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return RBR;

@@ -90,7 +90,7 @@ void LexerGenerator::generate(const std::string &directory, const std::string &f
     cppFile << "Token " << className << "::findNextToken() {\n";
     cppFile << tab << "std::smatch m;\n";
     for (const auto& pr: regToCode) {
-        cppFile << tab << "if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R\"(^" << pr.first << ")\"))) {\n"
+        cppFile << tab << "if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R\"(^(" << pr.first << "))\"))) {\n"
                 << tab << tab << "curPos += m.str().size();\n"
                 << tab << tab << "_tokenString = m.str();\n"
                 << tab << tab << pr.second

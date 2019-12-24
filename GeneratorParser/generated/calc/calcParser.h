@@ -1,18 +1,18 @@
 #pragma once
 #include <bits/stdc++.h>
-#include "inputLexer.h"
+#include "calcLexer.h"
 #include <bits/stdc++.h>
 #include "../Tree.h"
 
-class inputParser {
-    inputLexer lexer;
+class calcParser {
+    calcLexer lexer;
     Tree E();
     Tree E2();
     Tree F();
     Tree T();
     Tree T2();
 public:
-    inputParser() = default;
+    calcParser() = default;
     void updateInput(std::string& input);
     Tree parse();
 };

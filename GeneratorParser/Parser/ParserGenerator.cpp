@@ -156,6 +156,7 @@ void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::
             file << "        auto val" << ind << " = " << tt << "();\n";
         } else {
             if (tt != "EPS") {
+                file << "        if (lexer.curToken() != " << tt << ") throw std::runtime_error(\"bad_token\");\n";
                 file << "        auto val" << ind << " = lexer.tokenString();\n"
                      << "        lexer.nextToken();\n";
             }
@@ -250,7 +251,7 @@ void ParserGenerator::generateCppFile(const std::string &name, const std::string
             file << "    } else ";
         }
         file << "{\n"
-             << "       throw new std::runtime_error(\"bad token\");\n";
+             << "       throw std::runtime_error(\"bad token\");\n";
         file << "    }\n";
         file << "}\n";
     }

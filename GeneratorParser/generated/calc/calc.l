@@ -10,6 +10,7 @@ MUL
 LBR
 RBR
 %skip
+WHITE
 %%
 [ \t\n]+
 {

@@ -10,7 +10,7 @@ using namespace std;
 
 
 int main() {
-    LexerGenerator::generate("/home/kranya/MT/GeneratorParser/generated/calc", "input");
-    ParserGenerator::generate("/home/kranya/MT/GeneratorParser/generated/calc", "input");
+    LexerGenerator::generate("/home/kranya/MT/GeneratorParser/generated/pascal", "pascal");
+    ParserGenerator::generate("/home/kranya/MT/GeneratorParser/generated/pascal", "pascal");
     return 0;
 }

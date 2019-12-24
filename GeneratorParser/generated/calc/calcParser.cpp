@@ -1,15 +1,16 @@
 #include <bits/stdc++.h>
-#include "inputParser.h"
+#include "calcParser.h"
 
-void inputParser::updateInput(std::string& input) {
+void calcParser::updateInput(std::string& input) {
     lexer.updateInput(input);
 }
-Tree inputParser::parse() {
+Tree calcParser::parse() {
     lexer.nextToken();
     return E();
 }
-Tree inputParser::E() {
+Tree calcParser::E() {
     if (lexer.curToken() == MINUS) {
+        if (lexer.curToken() != MINUS) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
         auto val2 = E();
@@ -38,11 +39,12 @@ auto retVal = Tree("E", children);
 
        return retVal;
     } else {
-       throw new std::runtime_error("bad token");
+       throw std::runtime_error("bad token");
     }
 }
-Tree inputParser::E2() {
+Tree calcParser::E2() {
     if (lexer.curToken() == PLUS) {
+        if (lexer.curToken() != PLUS) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
         auto val2 = T();
@@ -55,6 +57,7 @@ auto retVal = Tree("E2", children);
 
        return retVal;
     } else if (lexer.curToken() == MINUS) {
+        if (lexer.curToken() != MINUS) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
         auto val2 = T();
@@ -71,14 +74,16 @@ auto retVal = Tree("E2", children);
 
        return retVal;
     } else {
-       throw new std::runtime_error("bad token");
+       throw std::runtime_error("bad token");
     }
 }
-Tree inputParser::F() {
+Tree calcParser::F() {
     if (lexer.curToken() == LBR) {
+        if (lexer.curToken() != LBR) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
         auto val2 = E();
+        if (lexer.curToken() != RBR) throw std::runtime_error("bad_token");
         auto val3 = lexer.tokenString();
         lexer.nextToken();
        std::vector<Tree> children;
@@ -89,6 +94,7 @@ auto retVal = Tree("F", children);
 
        return retVal;
     } else if (lexer.curToken() == NUM) {
+        if (lexer.curToken() != NUM) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
        std::vector<Tree> children;
@@ -97,10 +103,10 @@ auto retVal = Tree("F", children);
 
        return retVal;
     } else {
-       throw new std::runtime_error("bad token");
+       throw std::runtime_error("bad token");
     }
 }
-Tree inputParser::T() {
+Tree calcParser::T() {
     if (lexer.curToken() == NUM) {
         auto val1 = F();
         auto val2 = T2();
@@ -120,11 +126,12 @@ auto retVal = Tree("T", children);
 
        return retVal;
     } else {
-       throw new std::runtime_error("bad token");
+       throw std::runtime_error("bad token");
     }
 }
-Tree inputParser::T2() {
+Tree calcParser::T2() {
     if (lexer.curToken() == MUL) {
+        if (lexer.curToken() != MUL) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
         auto val2 = F();
@@ -137,6 +144,7 @@ auto retVal = Tree("T2", children);
 
        return retVal;
     } else if (lexer.curToken() == DIV) {
+        if (lexer.curToken() != DIV) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
         auto val2 = F();
@@ -153,6 +161,6 @@ auto retVal = Tree("T2", children);
 
        return retVal;
     } else {
-       throw new std::runtime_error("bad token");
+       throw std::runtime_error("bad token");
     }
 }
