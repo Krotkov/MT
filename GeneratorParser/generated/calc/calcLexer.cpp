@@ -50,10 +50,15 @@ Token calcLexer::findNextToken() {
         _tokenString = m.str();
         return MINUS;
     }
-    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\\))"))) {
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\/))"))) {
         curPos += m.str().size();
         _tokenString = m.str();
         return DIV;
+    }
+    if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\*\*))"))) {
+        curPos += m.str().size();
+        _tokenString = m.str();
+        return POW;
     }
     if (std::regex_search(input.cbegin() + curPos, input.cend(), m, std::regex(R"(^(\*))"))) {
         curPos += m.str().size();

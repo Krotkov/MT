@@ -1,6 +1,6 @@
 %{
 %}
-%tokens`WHITE`NUM`MINUS`DIV`PLUS`MUL`LBR`RBR
+%tokens`WHITE`NUM`MINUS`DIV`PLUS`MUL`LBR`RBR`POW
 %skip`WHITE
 %%
 [ \t\n]+`{
@@ -15,8 +15,11 @@ return PLUS;
 \-`{
 return MINUS;
 }
-\\`{
+\/`{
 return DIV;
+}
+\*\*`{
+return POW;
 }
 \*`{
 return MUL;

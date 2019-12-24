@@ -6,13 +6,15 @@
 
 class calcParser {
     calcLexer lexer;
-    Tree E();
-    Tree E2();
-    Tree F();
-    Tree T();
-    Tree T2();
+    std::vector<int> E(std::vector<int> vect);
+    std::vector<int> E2(std::vector<int> vect);
+    std::vector<int> F(std::vector<int> vect);
+    std::vector<int> P(std::vector<int> vect);
+    std::vector<int> P2(std::vector<int> vect);
+    std::vector<int> T(std::vector<int> vect);
+    std::vector<int> T2(std::vector<int> vect);
 public:
     calcParser() = default;
     void updateInput(std::string& input);
-    Tree parse();
+    std::vector<int> parse();
 };

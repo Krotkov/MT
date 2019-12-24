@@ -5,90 +5,110 @@
 
 %start`E
 
-%type`Tree`E`E2`T`T2`F
+%type`std::vector<int>`E`E2`T`T2`F`P`P2
+
+%attribute`std::vector<int>`vect
 
 %%
 E`:
 |`T`E2`{
-$1$2
-std::vector<Tree> children;
-children.emplace_back($1);
-children.emplace_back($2);
-$$ = Tree("E", children);
-}
-|`MINUS`E`{
-$1$2
-std::vector<Tree> children;
-children.emplace_back($1);
-children.emplace_back($2);
-$$ = Tree("E", children);
+$1
+vect = $1;
+$2
+$$ = $2;
 }
 ;
 E2`:
 |`PLUS`T`E2`{
-$1$2$3
-std::vector<Tree> children;
-children.emplace_back("+");
-children.emplace_back($2);
-children.emplace_back($3);
-$$ = Tree("E2", children);
+$1
+$2
+int a = vect.back();
+vect.pop_back();
+vect.push_back(a + $2[0]);
+$3
+$$ = $3;
 }
 |`MINUS`T`E2`{
-$1$2$3
-std::vector<Tree> children;
-children.emplace_back($1);
-children.emplace_back($2);
-children.emplace_back($3);
-$$ = Tree("E2", children);
+$1
+$2
+int a = vect.back();
+vect.pop_back();
+vect.push_back(a - $2[0]);
+$3
+$$ = $3;
 }
 |`{
-$$ = Tree("E2");
+$$ = std::vector<int>(vect);
 }
 ;
 T`:
-|`F`T2`{
-$1$2
-std::vector<Tree> children;
-children.emplace_back($1);
-children.emplace_back($2);
-$$ = Tree("T", children);
+|`P`T2`{
+$1
+vect = $1;
+$2
+$$ = $2;
 }
 ;
 T2`:
-|`MUL`F`T2`{
-$1$2$3
-std::vector<Tree> children;
-children.emplace_back("*");
-children.emplace_back($2);
-children.emplace_back($3);
-$$ = Tree("T2", children);
+|`MUL`P`T2`{
+$1
+$2
+int a = vect.back();
+vect.pop_back();
+vect.push_back(a * $2[0]);
+$3
+$$ = $3;
 }
-|`DIV`F`T2`{
-$1$2$3
-std::vector<Tree> children;
-children.emplace_back($1);
-children.emplace_back($2);
-children.emplace_back($3);
-$$ = Tree("T2", children);
+|`DIV`P`T2`{
+$1
+$2
+int a = vect.back();
+vect.pop_back();
+vect.push_back(a / $2[0]);
+$3
+$$ = $3;
 }
 |`{
-$$ = Tree("T2");
+$$ = std::vector<int>(vect);
+}
+;
+P`:
+|`F`P2`{
+$1
+vect = $1;
+$2
+$$ = $2;
+}
+;
+P2`:
+|`POW`F`P2`{
+$1
+$2
+auto vect1 = vect;
+vect = $2;
+$3
+vect = vect1;
+int a = vect.back();
+vect.pop_back();
+int v = 1;
+for (int i = 0; i < $3[0]; i++) {v *= a;}
+vect.push_back(v);
+$$ = vect;
+}
+|`{
+$$ = std::vector<int>(vect);
 }
 ;
 F`:
 |`NUM`{
 $1
-std::vector<Tree> children;
-children.emplace_back($1);
-$$ = Tree("F", children);
+std::vector<int> v;
+v.push_back(std::atoi($1.data()));
+$$ = v;
 }
 |`LBR`E`RBR`{
 $1$2$3
-std::vector<Tree> children;
-children.emplace_back("(");
-children.emplace_back($2);
-children.emplace_back(")");
-$$ = Tree("F", children);
+$$ = std::vector<int>($2);
 }
 ;
 %%

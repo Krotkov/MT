@@ -11,8 +11,9 @@ int main() {
     std::string str;
     getline(std::cin, str);
     parser.updateInput(str);
-    Tree tree = parser.parse();
-    std::set<int> se;
-    printTree(tree, 0, se);
+    std::vector<int> tree = parser.parse();
+    std::cout << tree[0] << "\n";
+    //std::set<int> se;
+    //printTree(tree, 0, se);
     return 0;
 }
