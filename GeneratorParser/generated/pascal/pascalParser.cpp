@@ -79,11 +79,31 @@ lexer.nextToken();
 if (lexer.curToken() != NAME) throw std::runtime_error("bad_token");
 auto val2 = lexer.tokenString();
 lexer.nextToken();
-if (lexer.curToken() != LBR) throw std::runtime_error("bad_token");
-auto val3 = lexer.tokenString();
+        auto val3 = SIGNAT(type);
+if (lexer.curToken() != SEMICOLON) throw std::runtime_error("bad_token");
+auto val4 = lexer.tokenString();
 lexer.nextToken();
-        auto val4 = AS(type);
-if (lexer.curToken() != RBR) throw std::runtime_error("bad_token");
+
+std::vector<Tree> children;
+children.emplace_back(val1);
+children.emplace_back(val2);
+children.emplace_back(val3);
+children.emplace_back(val4);
+auto retVal = Tree("S", children);
+
+       return retVal;
+    } else if (lexer.curToken() == FUNCTION) {
+       if (lexer.curToken() != FUNCTION) throw std::runtime_error("bad_token");
+auto val1 = lexer.tokenString();
+lexer.nextToken();
+if (lexer.curToken() != NAME) throw std::runtime_error("bad_token");
+auto val2 = lexer.tokenString();
+lexer.nextToken();
+        auto val3 = SIGNAT(type);
+if (lexer.curToken() != COLON) throw std::runtime_error("bad_token");
+auto val4 = lexer.tokenString();
+lexer.nextToken();
+if (lexer.curToken() != TYPE) throw std::runtime_error("bad_token");
 auto val5 = lexer.tokenString();
 lexer.nextToken();
 if (lexer.curToken() != SEMICOLON) throw std::runtime_error("bad_token");
@@ -100,40 +120,29 @@ children.emplace_back(val6);
 auto retVal = Tree("S", children);
 
        return retVal;
-    } else if (lexer.curToken() == FUNCTION) {
-       if (lexer.curToken() != FUNCTION) throw std::runtime_error("bad_token");
+    } else {
+       throw std::runtime_error("bad token");
+    }
+}
+Tree pascalParser::SIGNAT(std::string type) {
+    if (lexer.curToken() == LBR) {
+       if (lexer.curToken() != LBR) throw std::runtime_error("bad_token");
 auto val1 = lexer.tokenString();
 lexer.nextToken();
-if (lexer.curToken() != NAME) throw std::runtime_error("bad_token");
-auto val2 = lexer.tokenString();
-lexer.nextToken();
-if (lexer.curToken() != LBR) throw std::runtime_error("bad_token");
-auto val3 = lexer.tokenString();
-lexer.nextToken();
-        auto val4 = AS(type);
+        auto val2 = AS(type);
 if (lexer.curToken() != RBR) throw std::runtime_error("bad_token");
-auto val5 = lexer.tokenString();
-lexer.nextToken();
-if (lexer.curToken() != COLON) throw std::runtime_error("bad_token");
-auto val6 = lexer.tokenString();
-lexer.nextToken();
-if (lexer.curToken() != TYPE) throw std::runtime_error("bad_token");
-auto val7 = lexer.tokenString();
-lexer.nextToken();
-if (lexer.curToken() != SEMICOLON) throw std::runtime_error("bad_token");
-auto val8 = lexer.tokenString();
+auto val3 = lexer.tokenString();
 lexer.nextToken();
 
 std::vector<Tree> children;
 children.emplace_back(val1);
 children.emplace_back(val2);
 children.emplace_back(val3);
-children.emplace_back(val4);
-children.emplace_back(val5);
-children.emplace_back(val6);
-children.emplace_back(val7);
-children.emplace_back(val8);
-auto retVal = Tree("S", children);
+auto retVal = Tree("SIGNAT", children);
+
+       return retVal;
+    } else if (lexer.curToken() == SEMICOLON || lexer.curToken() == COLON || false) {
+       auto retVal = Tree("SIGNAT");
 
        return retVal;
     } else {

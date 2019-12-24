@@ -5,26 +5,13 @@
 
 %start`S
 
-%type`Tree`S`AS`AS2`VS`VS2`A
+%type`Tree`S`AS`AS2`VS`VS2`A`SIGNAT
 
 %attribute`std::string`type
 
 %%
 S`:
-|`FUNCTION`NAME`LBR`AS`RBR`COLON`TYPE`SEMICOLON`{
-$1$2$3$4$5$6$7$8
-std::vector<Tree> children;
-children.emplace_back($1);
-children.emplace_back($2);
-children.emplace_back($3);
-children.emplace_back($4);
-children.emplace_back($5);
-children.emplace_back($6);
-children.emplace_back($7);
-children.emplace_back($8);
-$$ = Tree("S", children);
-}
-|`PROCEDURE`NAME`LBR`AS`RBR`SEMICOLON`{
+|`FUNCTION`NAME`SIGNAT`COLON`TYPE`SEMICOLON`{
 $1$2$3$4$5$6
 std::vector<Tree> children;
 children.emplace_back($1);
@@ -34,6 +21,28 @@ children.emplace_back($4);
 children.emplace_back($5);
 children.emplace_back($6);
 $$ = Tree("S", children);
+}
+|`PROCEDURE`NAME`SIGNAT`SEMICOLON`{
+$1$2$3$4
+std::vector<Tree> children;
+children.emplace_back($1);
+children.emplace_back($2);
+children.emplace_back($3);
+children.emplace_back($4);
+$$ = Tree("S", children);
+}
+;
+SIGNAT`:
+|`LBR`AS`RBR`{
+$1$2$3
+std::vector<Tree> children;
+children.emplace_back($1);
+children.emplace_back($2);
+children.emplace_back($3);
+$$ = Tree("SIGNAT", children);
+}
+|`{
+$$ = Tree("SIGNAT");
 }
 ;
 AS`:

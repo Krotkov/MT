@@ -10,6 +10,7 @@ class pascalParser {
     Tree AS(std::string type);
     Tree AS2(std::string type);
     Tree S(std::string type);
+    Tree SIGNAT(std::string type);
     Tree VS(std::string type);
     Tree VS2(std::string type);
 public:
