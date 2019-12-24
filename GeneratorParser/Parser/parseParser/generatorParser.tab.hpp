@@ -62,7 +62,8 @@ extern int parser_debug;
     CAR = 268,
     COMMA = 269,
     COLON = 270,
-    SEMICOLON = 271
+    SEMICOLON = 271,
+    ATTRIBUTE = 272
   };
 #endif
 
@@ -70,14 +71,14 @@ extern int parser_debug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 17 "generatorParser.y"
+#line 18 "generatorParser.y"
 
     std::string* str;
     std::vector<std::string>* vect;
     std::pair<std::vector<std::string>, std::string>* pir;
     std::vector<std::pair<std::vector<std::string>, std::string> >* vectpir;
 
-#line 81 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.hpp"
+#line 82 "/home/kranya/MT/GeneratorParser/Parser/parseParser/generatorParser.tab.hpp"
 
 };
 typedef union YYSTYPE YYSTYPE;

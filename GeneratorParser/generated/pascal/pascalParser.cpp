@@ -7,18 +7,19 @@ void pascalParser::updateInput(std::string &input) {
 
 Tree pascalParser::parse() {
     lexer.nextToken();
-    return S();
+    return S({});
 }
 
-Tree pascalParser::A() {
+Tree pascalParser::A(std::string type) {
     if (lexer.curToken() == NAME) {
-        auto val1 = VS();
+        auto val1 = VS(type);
         if (lexer.curToken() != COLON) throw std::runtime_error("bad_token");
         auto val2 = lexer.tokenString();
         lexer.nextToken();
         if (lexer.curToken() != TYPE) throw std::runtime_error("bad_token");
         auto val3 = lexer.tokenString();
         lexer.nextToken();
+
         std::vector<Tree> children;
         children.emplace_back(val1);
         children.emplace_back(val2);
@@ -31,10 +32,11 @@ Tree pascalParser::A() {
     }
 }
 
-Tree pascalParser::AS() {
+Tree pascalParser::AS(std::string type) {
     if (lexer.curToken() == NAME) {
-        auto val1 = A();
-        auto val2 = AS2();
+        auto val1 = A(type);
+        auto val2 = AS2(type);
+
         std::vector<Tree> children;
         children.emplace_back(val1);
         children.emplace_back(val2);
@@ -50,13 +52,14 @@ Tree pascalParser::AS() {
     }
 }
 
-Tree pascalParser::AS2() {
+Tree pascalParser::AS2(std::string type) {
     if (lexer.curToken() == SEMICOLON) {
         if (lexer.curToken() != SEMICOLON) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
-        auto val2 = A();
-        auto val3 = AS2();
+        auto val2 = A(type);
+        auto val3 = AS2(type);
+
         std::vector<Tree> children;
         children.emplace_back(val1);
         children.emplace_back(val2);
@@ -73,7 +76,7 @@ Tree pascalParser::AS2() {
     }
 }
 
-Tree pascalParser::S() {
+Tree pascalParser::S(std::string type) {
     if (lexer.curToken() == PROCEDURE) {
         if (lexer.curToken() != PROCEDURE) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
@@ -84,13 +87,14 @@ Tree pascalParser::S() {
         if (lexer.curToken() != LBR) throw std::runtime_error("bad_token");
         auto val3 = lexer.tokenString();
         lexer.nextToken();
-        auto val4 = AS();
+        auto val4 = AS(type);
         if (lexer.curToken() != RBR) throw std::runtime_error("bad_token");
         auto val5 = lexer.tokenString();
         lexer.nextToken();
         if (lexer.curToken() != SEMICOLON) throw std::runtime_error("bad_token");
         auto val6 = lexer.tokenString();
         lexer.nextToken();
+
         std::vector<Tree> children;
         children.emplace_back(val1);
         children.emplace_back(val2);
@@ -111,7 +115,7 @@ Tree pascalParser::S() {
         if (lexer.curToken() != LBR) throw std::runtime_error("bad_token");
         auto val3 = lexer.tokenString();
         lexer.nextToken();
-        auto val4 = AS();
+        auto val4 = AS(type);
         if (lexer.curToken() != RBR) throw std::runtime_error("bad_token");
         auto val5 = lexer.tokenString();
         lexer.nextToken();
@@ -124,6 +128,7 @@ Tree pascalParser::S() {
         if (lexer.curToken() != SEMICOLON) throw std::runtime_error("bad_token");
         auto val8 = lexer.tokenString();
         lexer.nextToken();
+
         std::vector<Tree> children;
         children.emplace_back(val1);
         children.emplace_back(val2);
@@ -141,12 +146,13 @@ Tree pascalParser::S() {
     }
 }
 
-Tree pascalParser::VS() {
+Tree pascalParser::VS(std::string type) {
     if (lexer.curToken() == NAME) {
         if (lexer.curToken() != NAME) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
         lexer.nextToken();
-        auto val2 = VS2();
+        auto val2 = VS2(type);
+
         std::vector<Tree> children;
         children.emplace_back(val1);
         children.emplace_back(val2);
@@ -158,7 +164,7 @@ Tree pascalParser::VS() {
     }
 }
 
-Tree pascalParser::VS2() {
+Tree pascalParser::VS2(std::string type) {
     if (lexer.curToken() == COMMA) {
         if (lexer.curToken() != COMMA) throw std::runtime_error("bad_token");
         auto val1 = lexer.tokenString();
@@ -166,7 +172,8 @@ Tree pascalParser::VS2() {
         if (lexer.curToken() != NAME) throw std::runtime_error("bad_token");
         auto val2 = lexer.tokenString();
         lexer.nextToken();
-        auto val3 = VS2();
+        auto val3 = VS2(type);
+
         std::vector<Tree> children;
         children.emplace_back(val1);
         children.emplace_back(val2);

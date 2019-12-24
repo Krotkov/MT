@@ -51,6 +51,10 @@ letter [A-Z]
     parser_lval.str = new std::string(parser_text);
     return START;
 }
+"%attribute" {
+    parser_lval.str = new std::string(parser_text);
+    return ATTRIBUTE;
+}
 ":" {
     parser_lval.str = new std::string(parser_text);
     return COLON;

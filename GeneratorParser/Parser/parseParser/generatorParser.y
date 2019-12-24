@@ -9,6 +9,7 @@
     std::string commonType;
     std::unordered_map<std::string, std::vector<std::pair<std::vector<std::string>, std::string> > > neTermRules;
     std::set<std::string> neTerms;
+    std::vector<std::pair<std::string, std::string>> attributes;
 %}
 
 %name-prefix "parser_"
@@ -21,21 +22,39 @@
     std::vector<std::pair<std::vector<std::string>, std::string> >* vectpir;
 }
 
-%type <str> INPUT MYTEXT RULES RULE
-%type <vect> TOKENS
+%type <str> INPUT MYTEXT RULES RULE ATTRS
+%type <vect> TOKENS VARS
 %type <pir> PATTERN
 %type <vectpir> PATTERNS
 %token <str> TEXT WHITE PROCLB PROCRB PROCPROC LBR RBR TYPE TOKEN START
-%token CAR COMMA COLON SEMICOLON
+%token CAR COMMA COLON SEMICOLON ATTRIBUTE
 
 %%
 
     INPUT:
-        PROCLB MYTEXT PROCRB START TEXT TYPE TEXT PROCPROC RULES PROCPROC {
+        PROCLB MYTEXT PROCRB START TEXT TYPE TEXT ATTRS PROCPROC RULES PROCPROC {
             header = *$2;
             startPoint = *$5;
             commonType = *$7;
         }
+    ATTRS:
+    	ATTRS ATTRIBUTE TEXT VARS {
+    	    for (auto a: *$4) {
+    	    	attributes.emplace_back(*$3, a);
+    	    }
+    	    $$ = new std::string(*$1);
+    	}
+    	| {
+	    $$ = new std::string("");
+    	}
+    VARS:
+    	VARS TEXT {
+    	    $1->emplace_back(*$2);
+	    $$ = $1;
+    	}
+    	| {
+    	  $$ = new std::vector<std::string>();
+    	}
     MYTEXT:
     	MYTEXT TEXT {
     	    $$ = new std::string(*$1 + *$2 + "\n");

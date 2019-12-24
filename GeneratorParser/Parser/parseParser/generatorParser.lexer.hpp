@@ -700,7 +700,7 @@ extern int yylex (void);
 #undef yyTABLES_NAME
 #endif
 
-#line 68 "generatorParser.l"
+#line 72 "generatorParser.l"
 
 
 #line 707 "generatorParser.lexer.hpp"

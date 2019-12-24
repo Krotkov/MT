@@ -13,6 +13,7 @@ extern std::set<std::string> neTerms;
 extern std::string startPoint;
 extern std::string header;
 extern std::string commonType;
+extern std::vector<std::pair<std::string, std::string> > attributes;
 
 class ParserGenerator {
     static std::string readFile(const std::string &file);
@@ -44,7 +45,10 @@ class ParserGenerator {
 
     static void printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string>& rule);
 
-    static std::pair<std::string, bool> processCode(std::string code);
+    static std::pair<std::string, bool> processCode(std::string code, const std::vector<std::string>& rules);
+
+    static std::string attrsToStr();
+    static std::string attrsToStr2();
 
 public:
     static void generate(const std::string &directory, const std::string &file);

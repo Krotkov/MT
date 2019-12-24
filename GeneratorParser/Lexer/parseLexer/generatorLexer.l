@@ -5,9 +5,9 @@
 
 %option outfile = "generatorLexer.lexer.cpp" header-file = "generatorLexer.lexer.hpp"
 
-white [ \t\n]*
+white [ \t\n`]*
 digit [0-9]
-text  [^\n]+
+text  [^\n`]+
 letter [A-Z]
 
 %%

@@ -20,7 +20,6 @@ std::string ParserGenerator::readFile(const std::string &file) {
         ans += str;
         ans += "\n";
     }
-    std::cout << ans << std::endl;
     return ans;
 }
 
@@ -131,10 +130,10 @@ ParserGenerator::findRule(const std::string &neTerm, const std::string &term,
                 size_t ind = 0;
                 while (ind < rule.first.size() &&
                        neTerms.find(rule.first[ind]) != neTerms.end() && first[rule.first[ind]].find("EPS")
-                                                                          != first[rule.first[ind]].end()) {
+                                                                         != first[rule.first[ind]].end()) {
                     ind++;
                 }
-                for (size_t i = 0; i < std::min(ind+1, rule.first.size()); i++) {
+                for (size_t i = 0; i < std::min(ind + 1, rule.first.size()); i++) {
                     if (neTerms.find(rule.first[i]) != neTerms.end()) {
                         if (first[rule.first[i]].find(term) != first[rule.first[i]].end()) return rule;
                     } else {
@@ -149,22 +148,9 @@ ParserGenerator::findRule(const std::string &neTerm, const std::string &term,
     throw std::runtime_error("Can't find rule");
 }
 
-void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string>& rule) {
-    int ind = 1;
-    for (const auto& tt: rule.first) {
-        if (neTerms.find(tt) != neTerms.end()) {
-            file << "        auto val" << ind << " = " << tt << "();\n";
-        } else {
-            if (tt != "EPS") {
-                file << "        if (lexer.curToken() != " << tt << ") throw std::runtime_error(\"bad_token\");\n";
-                file << "        auto val" << ind << " = lexer.tokenString();\n"
-                     << "        lexer.nextToken();\n";
-            }
-        }
-        ind++;
-    }
+void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string> &rule) {
 
-    auto newCode = processCode(rule.second);
+    auto newCode = processCode(rule.second, rule.first);
 
     file << "       " << newCode.first << "\n";
     if (!newCode.second) {
@@ -173,11 +159,28 @@ void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::
     file << "       return retVal;\n";
 }
 
-std::pair<std::string, bool> ParserGenerator::processCode(std::string code) {
-    for (size_t i = 1; i < 100; i++) {
+std::pair<std::string, bool> ParserGenerator::processCode(std::string code, const std::vector<std::string> &rules) {
+    for (size_t i = 1; i < rules.size() + 1; i++) {
         std::string oldVal = "$" + std::to_string(i);
         std::string newVal = "val" + std::to_string(i);
+        bool flag = true;
         while (code.find(oldVal) != std::string::npos) {
+            if (flag) {
+                if (neTerms.find(rules[i - 1]) != neTerms.end()) {
+                    code.replace(code.find(oldVal), oldVal.size(),
+                                 "        auto val" + std::to_string(i) + " = " + rules[i - 1] + "(" + attrsToStr2() +
+                                 ");\n");
+                } else {
+                    if (rules[i - 1] != "EPS") {
+                        code.replace(code.find(oldVal), oldVal.size(), "if (lexer.curToken() != " + rules[i - 1] +
+                                                                       ") throw std::runtime_error(\"bad_token\");\n" +
+                                                                       "auto val" + std::to_string(i) +
+                                                                       " = lexer.tokenString();\nlexer.nextToken();\n");
+                    }
+                }
+                flag = false;
+                continue;
+            }
             code.replace(code.find(oldVal), oldVal.size(), newVal);
         }
     }
@@ -187,6 +190,28 @@ std::pair<std::string, bool> ParserGenerator::processCode(std::string code) {
     } else {
         return {code, false};
     }
+}
+
+std::string ParserGenerator::attrsToStr() {
+    std::string ans;
+    for (int i = 0; i + 1 < attributes.size(); i++) {
+        ans += attributes[i].first + " " + attributes[i].second + ", ";
+    }
+    if (!attributes.empty()) {
+        ans += attributes.back().first + " " + attributes.back().second;
+    }
+    return ans;
+}
+
+std::string ParserGenerator::attrsToStr2() {
+    std::string ans;
+    for (int i = 0; i + 1 < attributes.size(); i++) {
+        ans += attributes[i].second + ", ";
+    }
+    if (!attributes.empty()) {
+        ans += attributes.back().second;
+    }
+    return ans;
 }
 
 void ParserGenerator::generateHppFile(const std::string &name, const std::string &fileName) {
@@ -200,7 +225,7 @@ void ParserGenerator::generateHppFile(const std::string &name, const std::string
     file << "class " << name << "Parser {\n"
          << "    " << name << "Lexer lexer;\n";
     for (const auto &t: neTerms) {
-        file << tab << commonType << " " << t << "();\n";
+        file << tab << commonType << " " << t << "(" << attrsToStr() << ");\n";
     }
     file << "public:\n"
          << "    " << name << "Parser() = default;\n"
@@ -223,11 +248,16 @@ void ParserGenerator::generateCppFile(const std::string &name, const std::string
 
     file << commonType << " " << className << "::parse() {\n"
          << "    lexer.nextToken();\n"
-         << "    return " << startPoint << "();\n"
+         << "    return " << startPoint << "(";
+    for (size_t i = 0; i + 1 < attributes.size(); i++) {
+        file << "{}, ";
+    }
+    if (!attributes.empty()) file << "{}";
+    file << ");\n"
          << "}\n";
 
     for (const auto &neTerm: neTerms) {
-        file << commonType << " " << className << "::" << neTerm << "() {\n";
+        file << commonType << " " << className << "::" << neTerm << "(" << attrsToStr() << ") {\n";
         bool needFollow = false;
         file << "    ";
         for (const auto &term: first[neTerm]) {
@@ -242,7 +272,7 @@ void ParserGenerator::generateCppFile(const std::string &name, const std::string
         }
         if (needFollow) {
             file << "if (";
-            for (const auto& term: follow[neTerm]) {
+            for (const auto &term: follow[neTerm]) {
                 file << "lexer.curToken() == " << term << " || ";
             }
             file << "false) {\n";
@@ -263,9 +293,9 @@ void ParserGenerator::generate(const std::string &directory, const std::string &
     std::string str = readFile(fileName);
     parser__scan_string(str.data());
     parser_parse();
-    for (auto& rules: neTermRules) {
-        for (auto& rule: rules.second) {
-            auto& tokens = rule.first;
+    for (auto &rules: neTermRules) {
+        for (auto &rule: rules.second) {
+            auto &tokens = rule.first;
             if (tokens.empty()) tokens.emplace_back("EPS");
         }
     }

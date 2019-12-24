@@ -1,57 +1,36 @@
 %{
 %}
-%tokens
-WHITE
-FUNCTION
-PROCEDURE
-NAME
-LBR
-RBR
-COMMA
-COLON
-SEMICOLON
-TYPE
-%skip
-WHITE
+%tokens`WHITE`FUNCTION`PROCEDURE`NAME`LBR`RBR`COMMA`COLON`SEMICOLON`TYPE
+%skip`WHITE
 %%
-[ \t\n]+
-{
+[ \t\n]+`{
 return WHITE;
 }
-function
-{
+function`{
 return FUNCTION;
 }
-procedure
-{
+procedure`{
 return PROCEDURE;
 }
-\(
-{
+\(`{
 return LBR;
 }
-\)
-{
+\)`{
 return RBR;
 }
-:
-{
+:`{
 return COLON;
 }
-;
-{
+;`{
 return SEMICOLON;
 }
-\,
-{
+\,`{
 return COMMA;
 }
-Integer|Boolean|Float
-{
+Integer|Boolean|Float`{
 return TYPE;
 }
-[a-zA-z]+
-{
+[a-zA-z]+`{
 return NAME;
 }
 %%

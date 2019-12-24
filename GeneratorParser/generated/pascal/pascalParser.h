@@ -6,12 +6,12 @@
 
 class pascalParser {
     pascalLexer lexer;
-    Tree A();
-    Tree AS();
-    Tree AS2();
-    Tree S();
-    Tree VS();
-    Tree VS2();
+    Tree A(std::string type);
+    Tree AS(std::string type);
+    Tree AS2(std::string type);
+    Tree S(std::string type);
+    Tree VS(std::string type);
+    Tree VS2(std::string type);
 public:
     pascalParser() = default;
     void updateInput(std::string& input);
