@@ -14,6 +14,7 @@ extern std::string startPoint;
 extern std::string header;
 extern std::string commonType;
 extern std::vector<std::pair<std::string, std::string> > attributes;
+extern std::unordered_map<std::string, std::string> neTermTypes;
 
 class ParserGenerator {
     static std::string readFile(const std::string &file);
@@ -43,11 +44,13 @@ class ParserGenerator {
     static std::pair<std::vector<std::string>, std::string> findRule(const std::string &neTerm, const std::string &term,
                                                                      std::unordered_map<std::string, std::unordered_set<std::string>> &first);
 
-    static void printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string>& rule);
+    static void
+    printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string> &rule, const std::string &term);
 
-    static std::pair<std::string, bool> processCode(std::string code, const std::vector<std::string>& rules);
+    static std::pair<std::string, bool> processCode(std::string code, const std::vector<std::string> &rules);
 
     static std::string attrsToStr();
+
     static std::string attrsToStr2();
 
 public:

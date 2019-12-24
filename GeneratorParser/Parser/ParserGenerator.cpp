@@ -148,13 +148,14 @@ ParserGenerator::findRule(const std::string &neTerm, const std::string &term,
     throw std::runtime_error("Can't find rule");
 }
 
-void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string> &rule) {
+void ParserGenerator::printRule(std::ofstream &file, std::pair<std::vector<std::string>, std::string> &rule,
+                                const std::string &term) {
 
     auto newCode = processCode(rule.second, rule.first);
 
     file << "       " << newCode.first << "\n";
     if (!newCode.second) {
-        file << "        " << commonType << " retVal;\n";
+        file << "        " << neTermTypes[term] << " retVal;\n";
     }
     file << "       return retVal;\n";
 }
@@ -225,12 +226,12 @@ void ParserGenerator::generateHppFile(const std::string &name, const std::string
     file << "class " << name << "Parser {\n"
          << "    " << name << "Lexer lexer;\n";
     for (const auto &t: neTerms) {
-        file << tab << commonType << " " << t << "(" << attrsToStr() << ");\n";
+        file << tab << neTermTypes[t] << " " << t << "(" << attrsToStr() << ");\n";
     }
     file << "public:\n"
          << "    " << name << "Parser() = default;\n"
          << "    void updateInput(std::string& input);\n"
-         << "    " << commonType << " parse();\n"
+         << "    " << neTermTypes[startPoint] << " parse();\n"
          << "};\n";
 
 }
@@ -246,7 +247,7 @@ void ParserGenerator::generateCppFile(const std::string &name, const std::string
          << "    lexer.updateInput(input);\n"
          << "}\n";
 
-    file << commonType << " " << className << "::parse() {\n"
+    file << neTermTypes[startPoint] << " " << className << "::parse() {\n"
          << "    lexer.nextToken();\n"
          << "    return " << startPoint << "(";
     for (size_t i = 0; i + 1 < attributes.size(); i++) {
@@ -257,14 +258,14 @@ void ParserGenerator::generateCppFile(const std::string &name, const std::string
          << "}\n";
 
     for (const auto &neTerm: neTerms) {
-        file << commonType << " " << className << "::" << neTerm << "(" << attrsToStr() << ") {\n";
+        file << neTermTypes[neTerm] << " " << className << "::" << neTerm << "(" << attrsToStr() << ") {\n";
         bool needFollow = false;
         file << "    ";
         for (const auto &term: first[neTerm]) {
             if (term != "EPS") {
                 file << "if (lexer.curToken() == " << term << ") {\n";
                 auto rule = findRule(neTerm, term, first);
-                printRule(file, rule);
+                printRule(file, rule, neTerm);
                 file << "    } else ";
             } else {
                 needFollow = true;
@@ -277,7 +278,7 @@ void ParserGenerator::generateCppFile(const std::string &name, const std::string
             }
             file << "false) {\n";
             auto rule = findRule(neTerm, "EPS", first);
-            printRule(file, rule);
+            printRule(file, rule, neTerm);
             file << "    } else ";
         }
         file << "{\n"

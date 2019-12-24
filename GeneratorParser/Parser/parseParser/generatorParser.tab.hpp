@@ -71,7 +71,7 @@ extern int parser_debug;
 #if ! defined YYSTYPE && ! defined YYSTYPE_IS_DECLARED
 union YYSTYPE
 {
-#line 18 "generatorParser.y"
+#line 19 "generatorParser.y"
 
     std::string* str;
     std::vector<std::string>* vect;

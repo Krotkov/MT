@@ -1,13 +1,11 @@
 %{
 #include <bits/stdc++.h>
 #include "../Tree.h"
-
-std::vector<std::pair<std::string, std::string> > types;
 %}
 
 %start`S
 
-%type`Tree
+%type`Tree`S`AS`AS2`VS`VS2`A
 
 %attribute`std::string`type
 
@@ -65,7 +63,7 @@ $$ = Tree("AS2");
 ;
 A`:
 |`VS`COLON`TYPE`{
-$1$2
+$1$2$3
 std::vector<Tree> children;
 children.emplace_back($1);
 children.emplace_back($2);

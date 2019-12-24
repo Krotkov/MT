@@ -10,6 +10,7 @@
     std::unordered_map<std::string, std::vector<std::pair<std::vector<std::string>, std::string> > > neTermRules;
     std::set<std::string> neTerms;
     std::vector<std::pair<std::string, std::string>> attributes;
+    std::unordered_map<std::string, std::string> neTermTypes;
 %}
 
 %name-prefix "parser_"
@@ -22,7 +23,7 @@
     std::vector<std::pair<std::vector<std::string>, std::string> >* vectpir;
 }
 
-%type <str> INPUT MYTEXT RULES RULE ATTRS
+%type <str> INPUT MYTEXT RULES RULE ATTRS TYPES
 %type <vect> TOKENS VARS
 %type <pir> PATTERN
 %type <vectpir> PATTERNS
@@ -32,11 +33,21 @@
 %%
 
     INPUT:
-        PROCLB MYTEXT PROCRB START TEXT TYPE TEXT ATTRS PROCPROC RULES PROCPROC {
+        PROCLB MYTEXT PROCRB START TEXT TYPES ATTRS PROCPROC RULES PROCPROC {
             header = *$2;
             startPoint = *$5;
-            commonType = *$7;
+            commonType = "Tree";
         }
+    TYPES:
+    	TYPES TYPE TEXT VARS {
+    	    for (auto a: *$4) {
+    	    	neTermTypes[a] = *$3;
+    	    }
+    	    $$ = new std::string(*$1);
+    	}
+    	| {
+	    $$ = new std::string("");
+    	}
     ATTRS:
     	ATTRS ATTRIBUTE TEXT VARS {
     	    for (auto a: *$4) {
